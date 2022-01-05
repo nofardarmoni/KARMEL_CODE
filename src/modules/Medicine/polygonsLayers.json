@@ -1,0 +1,6 @@
+{
+  "cities": true,
+  "districts": true,
+  "populationstats": true,
+  "subdistricts": true
+}

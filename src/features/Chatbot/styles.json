@@ -1,0 +1,31 @@
+{
+  "avatar": {
+    "borderRadius": 0
+  },
+  "submitButton": {
+    "left": 0,
+    "right": "auto",
+    "fill": "white"
+  },
+  "content": {
+    "marginTop": 0
+  },
+  "bubble": {
+    "borderRadius": 18
+  },
+  "bubbleOption": {
+    "fontFamily": "AlmoniBold",
+    "cursor": "pointer"
+  },
+  "input": {
+    "fontFamily": "AlmoniBold",
+    "paddingRight": 20,
+    "backgroundColor": "#26a5d0",
+    "color": "white",
+    "borderTop": "0 solid #26a5d0",
+    "paddingLeft": 50
+  },
+  "footer": {
+    "backgroundColor": "#26a5d0"
+  }
+}

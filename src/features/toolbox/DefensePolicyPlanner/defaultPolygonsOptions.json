@@ -1,0 +1,34 @@
+[
+  {
+    "title": "בחר מחוז",
+    "layer": "districts",
+    "label": "מחוזות",
+    "idField": "OBJECTID",
+    "nameField": "MahoznameP",
+    "coordinatesField": "coordinates"
+  },
+  {
+    "title": "בחר נפה",
+    "layer": "subdistricts",
+    "label": "נפות",
+    "idField": "OBJECTID",
+    "nameField": "NafanamePQ",
+    "coordinatesField": "coordinates"
+  },
+  {
+    "title": "בחר עיר",
+    "layer": "cities",
+    "label": "ערים",
+    "idField": "OBJECTID",
+    "nameField": "CITY_NAME",
+    "coordinatesField": "coordinates"
+  },
+  {
+    "title": "בחר אזור סטטיסטי",
+    "layer": "populationstats",
+    "label": "למ\"ס",
+    "idField": "OBJECTID",
+    "nameField": "SHEM_YISHUV",
+    "coordinatesField": "coordinates"
+  }
+]

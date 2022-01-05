@@ -1,0 +1,21 @@
+{
+  "plugins": [
+    [
+      "module-resolver",
+      {
+        "root": ["."],
+        "alias": {
+          "@features": "./src/features",
+          "@services": "./src/services",
+          "@modules": "./src/modules",
+          "@states": "./src/states",
+          "@constants": "./src/constants",
+          "@hooks": "./src/hooks",
+          "@core": "./src/core",
+          "@layers": "./src/layers",
+          "@environment": "./src/environment"
+        }
+      }
+    ]
+  ]
+}

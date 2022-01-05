@@ -1,0 +1,26 @@
+{
+  "קל": {
+    "אזרחים": "civicLightInjured",
+    "חיילים": "militaryLightInjured"
+  },
+  "בינוני": {
+    "אזרחים": "civicMediumInjured",
+    "חיילים": "militaryMediumInjured"
+  },
+  "קשה": {
+    "אזרחים": "civicSevereInjured",
+    "חיילים": "militarySevereInjured"
+  },
+  "חרדה": {
+    "אזרחים": "civicApprehension",
+    "חיילים": "militaryApprehension"
+  },
+  "הרוגים": {
+    "אזרחים": "civicCasualties",
+    "חיילים": "militaryCasualties"
+  },
+  "לא מוגדר": {
+    "אזרחים": "civicUndefined",
+    "חיילים": "militaryUndefined"
+  }
+}

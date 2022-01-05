@@ -1,0 +1,10 @@
+{
+  "police": { "key": "police", "value": 100, "label": "משטרה" },
+  "mada": { "key": "mada", "value": 101, "label": "מד\"א" },
+  "kaba": { "key": "kaba", "value": 102, "label": "כב\"ה" },
+  "unitedHatzalah": {
+    "key": "unitedHatzalah",
+    "value": 1221,
+    "label": "איחוד הצלה"
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "opened": {
+    "stackId": "a",
+    "fill": "#75B8CF",
+    "name": "עומד"
+  },
+
+  "closed": {
+    "stackId": "b",
+    "fill": "#B379D4",
+    "name": "לא עומד"
+  },
+
+  "unknown": {
+    "stackId": "c",
+    "fill": "#8984D8",
+    "name": "לא ידוע"
+  },
+
+  "excluded": {
+    "stackId": "d",
+    "fill": "#FFE48B",
+    "name": "מוחרג"
+  }
+}

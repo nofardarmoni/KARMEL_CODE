@@ -1,0 +1,11 @@
+{
+  "background": "#191919",
+  "fontFamily": "AlmoniBold",
+  "headerBgColor": "#26a5d0",
+  "headerFontColor": "white",
+  "headerFontSize": "15px",
+  "botBubbleColor": "#26a5d0",
+  "botFontColor": "white",
+  "userBubbleColor": "#26a5d0",
+  "userFontColor": "white"
+}

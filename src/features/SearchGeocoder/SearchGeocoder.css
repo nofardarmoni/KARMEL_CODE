@@ -1,0 +1,95 @@
+.leaflet-popup > .leaflet-popup-content-wrapper {
+  color: white;
+  direction: rtl;
+}
+
+.leaflet-control-container > .leaflet-top > .leaflet-control {
+  margin-top: 90px;
+}
+
+.leaflet-control-geocoder > .leaflet-control-geocoder-icon {
+  min-height: 50px;
+  min-width: 50px;
+  background-color: #e6e6e6;
+  filter: invert(1);
+  border-radius: 1.5rem;
+  color: white;
+}
+
+.leaflet-top > .leaflet-control-geocoder {
+  border-radius: 1.7rem;
+  background-color: #191919;
+}
+
+.leaflet-top > .leaflet-control-geocoder > .leaflet-control-geocoder-form {
+  border-radius: 1.7rem;
+  transition: width 0.6s ease-in;
+  display: inline-block;
+  width: 0;
+}
+
+.leaflet-top
+  > .leaflet-control-geocoder
+  > .leaflet-control-geocoder-form
+  > input {
+  width: 0;
+  display: none;
+  background-color: #191919;
+  color: white;
+}
+
+.leaflet-top
+  > .leaflet-control-geocoder-expanded
+  > .leaflet-control-geocoder-form
+  > input {
+  display: inline-block;
+  outline: none;
+  animation: box 3.5s;
+  width: 200px;
+}
+
+/* important for changing the font in the search bar
+#root > .leaflet-container {
+  font: inherit;
+} */
+
+.leaflet-top
+  > .leaflet-control-geocoder-expanded
+  > .leaflet-control-geocoder-form {
+  border-radius: 1.7rem;
+  display: inline-block;
+  width: 250px;
+}
+
+.leaflet-control-geocoder > .leaflet-control-geocoder-alternatives {
+  margin-block-end: 0;
+  margin-block-start: 0;
+}
+
+.leaflet-control-geocoder > .leaflet-control-geocoder-error,
+.leaflet-control-geocoder > .leaflet-control-geocoder-alternatives > li {
+  text-align: center;
+  padding-left: auto;
+  padding-right: auto;
+  color: grey;
+}
+
+.leaflet-control-geocoder-alternatives > li > a,
+.leaflet-control-geocoder-alternatives > li:hover > a {
+  text-align: center;
+  padding-left: auto;
+  padding-right: auto;
+}
+
+.leaflet-control-geocoder-alternatives > li:not(:hover) > a {
+  color: white;
+}
+
+@keyframes box {
+  from {
+    width: 0;
+  }
+  to {
+    width: 250px;
+  }
+}
