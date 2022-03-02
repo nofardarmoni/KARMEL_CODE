@@ -17,7 +17,7 @@ function MapChildren({ layers, setLayers }) {
   );
 }
 
-export default function NationalEmergencyAuthorityModule() {
+export default function EarthquakeModule() {
   const [layers, setLayers] = useState(moduleLayers);
   const currentModule = useRecoilValue(currentModuleState);
   const storedModule = getLocalStorage(
@@ -29,11 +29,10 @@ export default function NationalEmergencyAuthorityModule() {
   useEffect(() => {
     setLocalStorage(currentModuleKey, currentModule);
   }, [currentModule]);
-
+  console.log("first", currentModule);
+  console.log("storedModule", storedModule);
   return (
     <>
-      <WarClock />
-
       <Map isFlyTo={currentModule !== storedModule}>
         <MapChildren layers={layers} setLayers={setLayers} />
         <SearchGeocoder />

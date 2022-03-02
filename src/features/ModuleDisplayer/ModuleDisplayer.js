@@ -5,10 +5,10 @@ import {
   AtalModule,
   HomeFrontCommandModule,
   MedicineModule,
-  NationalEmergencyAuthorityModule,
+  Earthquake,
   PopulationModule,
   TikshuvModule,
-  SimulatorModule
+  SimulatorModule,
 } from "@modules";
 import { modules } from "@constants";
 
@@ -21,9 +21,7 @@ export default function ModuleDisplayer() {
       {currentModule === modules.medicine && <MedicineModule />}
       {currentModule === modules.population && <PopulationModule />}
       {currentModule === modules.tikshuv && <TikshuvModule />}
-      {currentModule === modules.nationalEmergencyAuthority && (
-        <NationalEmergencyAuthorityModule />
-      )}
+      {currentModule === modules.earthquake && <Earthquake />}
       {currentModule === modules.atal && <AtalModule />}
       {currentModule === modules.simulator && <SimulatorModule />}
     </>

@@ -56,8 +56,8 @@ export default function Toolbox({ layers, setLayers, defensePolicyOptions }) {
   const [settingsFlag, setSettingsFlag] = useState(false);
   const [layersControlFlag, setLayersControlFlag] = useState(false);
   const [distanceMeasurementFlag, setDistanceMeasurementFlag] = useRecoilState(
-     distanceMeasurementFlagState
-   );
+    distanceMeasurementFlagState
+  );
   const [navigationFlag, setNavigationFlag] = useState(false);
   const [drawMode, setDrawMode] = useState(false);
   const { defensePolicyFlag, setDefensePolicyFlag } =
@@ -103,7 +103,7 @@ export default function Toolbox({ layers, setLayers, defensePolicyOptions }) {
         "Medicine",
         "Population",
         "Tikshuv",
-        "NationalEmergencyAuthority",
+        "Earthquake",
         "Atal",
       ],
     },
@@ -154,7 +154,7 @@ export default function Toolbox({ layers, setLayers, defensePolicyOptions }) {
         "Medicine",
         "Population",
         "Tikshuv",
-        "NationalEmergencyAuthority",
+        "Earthquake",
         "Atal",
       ],
     },
@@ -171,7 +171,7 @@ export default function Toolbox({ layers, setLayers, defensePolicyOptions }) {
         "Medicine",
         "Population",
         "Tikshuv",
-        "NationalEmergencyAuthority",
+        "Earthquake",
         "Atal",
       ],
     },
@@ -201,7 +201,7 @@ export default function Toolbox({ layers, setLayers, defensePolicyOptions }) {
         "Medicine",
         "Population",
         "Tikshuv",
-        "NationalEmergencyAuthority",
+        "Earthquake",
         "Atal",
       ],
     },
