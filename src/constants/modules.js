@@ -3,9 +3,9 @@ export const modules = {
   medicine: "Medicine",
   population: "Population",
   tikshuv: "Tikshuv",
-  nationalEmergencyAuthority: "NationalEmergencyAuthority",
+  earthquake: "Earthquake",
   atal: "Atal",
-  simulator: "Simulator"
+  simulator: "Simulator",
 };
 
 export const defaultModule = modules.medicine;

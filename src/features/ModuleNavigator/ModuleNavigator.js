@@ -65,16 +65,16 @@ const modules = {
     label: "אוכלוסייה",
     icon: `${iconsUrl}population/population.png`,
   },
-  NationalEmergencyAuthority: {
-    label: `רח"ל`,
-    icon: `${iconsUrl}national-emergency-authority/national-emergency-authority.png`,
+  Earthquake: {
+    label: "רעידת אדמה",
+    icon: `${iconsUrl}earthquake/earthquake.png`,
   },
   Atal: {
     label: 'אט"ל',
     icon: `${iconsUrl}/atal/atal.png`,
   },
   Simulator: {
-    label: 'סימולטור',
+    label: "סימולטור",
     icon: `${iconsUrl}/simulator/simulator.png`,
   },
 };

@@ -36,7 +36,7 @@ function LoadingIndicator() {
 }
 
 export default function App() {
-  useEnv();
+  // useEnv();
 
   return (
     <>
