@@ -52,7 +52,6 @@ function ClinicsLayer({ polygon, distance, onlyOpenClinics }) {
   }, [data]);
 
   if (!data) return null;
-
   return (
     <>
       {data.map(

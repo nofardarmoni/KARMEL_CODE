@@ -48,7 +48,7 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-export default function OpenEventsTitle({ eventSum }) {
+export default function OpenEventsTitle({ eventSum, isEarthquake }) {
   const classes = useStyles();
   const [sortMode, setSortMode] = useRecoilState(eventSortModeState);
   const [loading, setLoading] = useState(false);
@@ -67,7 +67,7 @@ export default function OpenEventsTitle({ eventSum }) {
   return (
     <>
       <div className={classes.titleContainer}>
-        <div className={classes.title}> אירועי טילים ({eventSum})</div>
+        <div className={classes.title}> {isEarthquake ? "אירוע רעידת אדמה" : "אירועי טילים"} ({eventSum})</div>
         {eventSum > 1 && (
           <Tooltip
             title={
