@@ -60,8 +60,7 @@ export default function EarthquakeModule() {
   useEffect(() => {
     setLocalStorage(currentModuleKey, currentModule);
   }, [currentModule]);
-  console.log("first", currentModule);
-  console.log("storedModule", storedModule);
+  
   return (
     <>
       <Map isFlyTo={currentModule !== storedModule}>

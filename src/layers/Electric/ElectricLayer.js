@@ -37,18 +37,18 @@ function ElectricLayer({ polygon, distance }) {
     options: { placeholderData: layerCache.current },
   });
 
-  console.log(data)
+  // console.log(data)
 
-  const iconsUrl = "icons/layers/Electric/";
+  const iconsUrl = "icons/layers/Electric";
 
   const displayedCameraIcon = L.icon({
     // put in a separate file
-    iconUrl: `${iconsUrl}lightning.png`,
+    iconUrl: `${iconsUrl}/lightning.png`,
     iconSize: [20, 20],
   });
 
   const cameraIcon = L.icon({
-    iconUrl: `${iconsUrl}lightning.png`,
+    iconUrl: `${iconsUrl}/lightning.png`,
     iconSize: [20, 20],
   });
 
@@ -60,7 +60,7 @@ function ElectricLayer({ polygon, distance }) {
   return (
     <>
       {data.map((camera) => (
-          // Create Icon
+        // Create Icon
         <Marker
           key={camera.link}
           position={[camera.latitude, camera.longitude]}

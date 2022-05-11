@@ -1,10 +1,9 @@
 import React, { useMemo, useRef } from "react";
 import { Marker } from "react-leaflet";
-import { deepCompareMemo, polygonToWKT } from "@services";
+import { deepCompareMemo } from "@services";
 import { makeStyles } from "@material-ui/core";
 import { icons } from "./waterIcons";
 import { CustomPopup } from "@core";
-// import { useApiQuery } from "@hooks/useApiQuery";
 
 const data = [
   {
@@ -24,12 +23,51 @@ const data = [
   },
 ];
 
+const toolTipDataNames = [
+  {
+    key: "WATER_TAAGID",
+    title: "תאגיד מים -",
+  },
+  {
+    key: "WATER_MAHOZ",
+    title: 'מחוז פקע"ר -',
+  },
+  {
+    key: "WATER_TUSHVIM",
+    title: 'סה"כ מספר תושבים -',
+  },
+  {
+    key: "WATER_RAMAT_TIFKUD_PRECENT",
+    title: "רמת תפקוד -",
+  },
+  {
+    key: "WATER_TUSHVIM_NO_WATER",
+    title: "מספר תושבים ללא מים -",
+  },
+  {
+    key: "WATER_ZMAN_TIKUN_DAYS",
+    title: "צפי תיקון -",
+    isConditional: true,
+  },
+  {
+    key: "WATER_TAHANUT_HALUKA",
+    title: "מספר תחנות חלוקה בעת מצב חירום -",
+  },
+];
+
 const useStyles = makeStyles(() => ({
-  title: {
-    textAlign: "center",
-    fontWeight: "bold",
+  tootlipTitle: {
+    fontSize: 18,
+    fontFamily: "AlmoniBold",
+    display: "flex",
+    justifyContent: "center",
+  },
+  tootlipContent: {
     fontSize: 14,
-    color: "white",
+    fontFamily: "AlmoniBold",
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "flex-start",
   },
 }));
 
@@ -51,22 +89,7 @@ const getDate = (lastUpdateTime) => {
 
 function WaterLayer({ layerKey, label, polygon, distance, showId }) {
   const classes = useStyles();
-  const layerCache = useRef([]);
-
-  const polygonWKT = useMemo(() => polygonToWKT(polygon), [polygon]);
-
-  //   const { data } = useApiQuery({
-  //     dataPath: `water/${polygon ? "polygon/" : ""}${layerKey}`,
-  //     label,
-  //     body: polygon && {
-  //       polygon: polygonWKT,
-  //       distance,
-  //     },
-  //     options: {
-  //       placeholderData: layerCache.current,
-  //       onSuccess: (data) => (layerCache.current = data),
-  //     },
-  //   });
+  // const layerCache = useRef([]);
 
   if (!data) return null;
   return (
@@ -78,8 +101,20 @@ function WaterLayer({ layerKey, label, polygon, distance, showId }) {
           icon={icons["waterIcon"]}
         >
           <CustomPopup closeButton={false}>
-            <div className={classes.title}>
-              מחוז: {waterStation.WATER_MAHOZ}
+            <div className={classes.tootlipTitle}>
+              רשות - {waterStation.WATER_RASHUT}
+            </div>
+            <div className={classes.tootlipContent}>
+              {toolTipDataNames.map(
+                (row, _) =>
+                  (!row.isConditional ||
+                    (row.isConditional &&
+                      waterStation["WATER_RAMAT_TIFKUD_PRECENT"] < "100")) && (
+                    <div key={row.key}>
+                      {row.title} {waterStation[row.key]}
+                    </div>
+                  )
+              )}
             </div>
           </CustomPopup>
         </Marker>
