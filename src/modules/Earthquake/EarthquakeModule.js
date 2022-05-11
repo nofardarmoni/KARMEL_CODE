@@ -12,13 +12,22 @@ import { layers as moduleLayers } from "./layers";
 import { currentEventState, eventListState } from "@states/eventState";
 
 function MapChildren({ layers, setLayers }) {
+  const [showMagnitodaInput, setShowMagnitodaInput] = useState(false)
+
+  useEffect(() => {
+    console.log("showMagnitodaInput: ", showMagnitodaInput)
+
+  }, [showMagnitodaInput])
+
+
   return (
     <>
       <Toolbox layers={layers} setLayers={setLayers} />
       <button className="MuiButtonBase-root MuiFab-root MuiSpeedDial-fab makeStyles-speedDialFab-44 MuiFab-primary"
        style={{position: 'absolute',  top: '20px', left: '85px', zIndex: '1000',  height: '50px', backgroundColor: 'rgb(25 25 25)', borderRadius:'5px',width:'100px'}}>תמונת מצב</button>
-             <button className="MuiButtonBase-root MuiFab-root MuiSpeedDial-fab makeStyles-speedDialFab-44 MuiFab-primary"
+             <button onClick={() => setShowMagnitodaInput((prevState) => !prevState)} className="MuiButtonBase-root MuiFab-root MuiSpeedDial-fab makeStyles-speedDialFab-44 MuiFab-primary"
        style={{position: 'absolute',  top: '20px', left: '200px', zIndex: '1000',height: '50px', backgroundColor: 'rgb(25 25 25)', borderRadius:'5px',width:'100px'}}>חיזוי</button>
+       <input placeholder="מגניטודה" type="text" min={4.5} max={12} style={{display: showMagnitodaInput ? 'block' : 'none', position: 'absolute',  top: '20px', left: '350px', zIndex: '1000',height: '50px', backgroundColor: 'rgb(25 25 25)', borderRadius:'5px',width:'100px', color: 'white'}} />
       <LayerDisplayer layers={layers} showLayers={true} />
     </>
   );

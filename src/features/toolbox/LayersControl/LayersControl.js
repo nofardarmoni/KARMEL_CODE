@@ -49,7 +49,6 @@ const StyledCheckbox = withStyles({
 
 export default function LayersControl({ layers, setLayers }) {
   const classes = useStyles();
-
   const updateCheckbox = (layerName, value) => {
     setLayers((prev) => {
       // const clone = _.cloneDeep(prev);

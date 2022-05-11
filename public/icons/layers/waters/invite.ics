@@ -1,0 +1,132 @@
+BEGIN:VCALENDAR
+PRODID:-//Microsoft Corporation//Outlook 16.0 MIMEDIR//EN
+VERSION:2.0
+METHOD:REQUEST
+X-MS-OLK-FORCEINSPECTOROPEN:TRUE
+BEGIN:VTIMEZONE
+TZID:Israel Standard Time
+BEGIN:STANDARD
+DTSTART:16011028T020000
+RRULE:FREQ=YEARLY;BYDAY=-1SU;BYMONTH=10
+TZOFFSETFROM:+0300
+TZOFFSETTO:+0200
+END:STANDARD
+BEGIN:DAYLIGHT
+DTSTART:16010330T020000
+RRULE:FREQ=YEARLY;BYDAY=-1FR;BYMONTH=3
+TZOFFSETFROM:+0200
+TZOFFSETTO:+0300
+END:DAYLIGHT
+END:VTIMEZONE
+BEGIN:VEVENT
+ATTENDEE;CN=shayronen138@gmail.com;RSVP=TRUE:mailto:shayronen138@gmail.com
+CLASS:PUBLIC
+CREATED:20220428T072742Z
+DESCRIPTION:Shani Orel is inviting you to a scheduled Zoom meeting.\n\n \n\
+	nJoin Zoom Meeting\n\nhttps://us02web.zoom.us/j/88344794700?pwd=d3JtVUViWX
+	BRNEp1b2FBam5QclJudz09 <https://us02web.zoom.us/j/88344794700?pwd=d3JtVUVi
+	WXBRNEp1b2FBam5QclJudz09> \n\n \n\nMeeting ID: 883 4479 4700\n\nPasscode: 
+	370746\n\nOne tap mobile\n\n+12532158782\,\,88344794700#\,\,\,\,*370746# U
+	S (Tacoma)\n\n+13017158592\,\,88344794700#\,\,\,\,*370746# US (Washington 
+	DC)\n\n \n\nDial by your location\n\n        +1 253 215 8782 US (Tacoma)\n
+	\n        +1 301 715 8592 US (Washington DC)\n\n        +1 312 626 6799 US
+	 (Chicago)\n\n        +1 346 248 7799 US (Houston)\n\n        +1 646 558 8
+	656 US (New York)\n\n        +1 669 900 9128 US (San Jose)\n\nMeeting ID: 
+	883 4479 4700\n\nPasscode: 370746\n\nFind your local number: https://us02w
+	eb.zoom.us/u/kbFOcaEIXS <https://us02web.zoom.us/u/kbFOcaEIXS> \n\n \n\n \
+	n\n
+DTEND;TZID="Israel Standard Time":20220428T113000
+DTSTAMP:20220428T072742Z
+DTSTART;TZID="Israel Standard Time":20220428T110000
+LAST-MODIFIED:20220428T072742Z
+LOCATION:https://us02web.zoom.us/j/88344794700?pwd=d3JtVUViWXBRNEp1b2FBam5Q
+	clJudz09
+ORGANIZER;CN=shani@byondxr.com:mailto:shani@byondxr.com
+PRIORITY:5
+SEQUENCE:1
+SUMMARY;LANGUAGE=he:Shay & Shani 
+TRANSP:OPAQUE
+UID:040000008200E00074C5B7101A82E0080000000000B762F3865AD801000000000000000
+	0100000005050A1A8A43A9846A59CA21E406B3757
+X-ALT-DESC;FMTTYPE=text/html:<html xmlns:v="urn:schemas-microsoft-com:vml" 
+	xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:w="urn:schemas-mic
+	rosoft-com:office:word" xmlns:m="http://schemas.microsoft.com/office/2004/
+	12/omml" xmlns="http://www.w3.org/TR/REC-html40"><head><meta http-equiv=Co
+	ntent-Type content="text/html\; charset=us-ascii"><meta name=Generator con
+	tent="Microsoft Word 15 (filtered medium)"><style><!--\n/* Font Definition
+	s */\n@font-face\n	{font-family:"Cambria Math"\;\n	panose-1:2 4 5 3 5 4 6 
+	3 2 4\;}\n@font-face\n	{font-family:Calibri\;\n	panose-1:2 15 5 2 2 2 4 3 
+	2 4\;}\n/* Style Definitions */\np.MsoNormal\, li.MsoNormal\, div.MsoNorma
+	l\n	{margin:0cm\;\n	font-size:11.0pt\;\n	font-family:"Calibri"\,sans-serif
+	\;}\na:link\, span.MsoHyperlink\n	{mso-style-priority:99\;\n	color:#0563C1
+	\;\n	text-decoration:underline\;}\nspan.EmailStyle18\n	{mso-style-type:per
+	sonal-compose\;\n	font-family:"Calibri"\,sans-serif\;\n	color:windowtext\;
+	}\n.MsoChpDefault\n	{mso-style-type:export-only\;\n	font-size:10.0pt\;}\n@
+	page WordSection1\n	{size:612.0pt 792.0pt\;\n	margin:72.0pt 72.0pt 72.0pt 
+	72.0pt\;}\ndiv.WordSection1\n	{page:WordSection1\;}\n--></style><!--[if gt
+	e mso 9]><xml>\n<o:shapedefaults v:ext="edit" spidmax="1026" />\n</xml><![
+	endif]--><!--[if gte mso 9]><xml>\n<o:shapelayout v:ext="edit">\n<o:idmap 
+	v:ext="edit" data="1" />\n</o:shapelayout></xml><![endif]--></head><body l
+	ang=EN-US link="#0563C1" vlink="#954F72" style='word-wrap:break-word'><div
+	 class=WordSection1><p class=MsoNormal>S<a name="WinZmBookmark_z90995">han
+	i Orel is inviting you to a scheduled Zoom meeting.<o:p></o:p></a></p><p c
+	lass=MsoNormal><span style='mso-bookmark:WinZmBookmark_z90995'><o:p>&nbsp\
+	;</o:p></span></p><p class=MsoNormal><span style='mso-bookmark:WinZmBookma
+	rk_z90995'>Join Zoom Meeting<o:p></o:p></span></p><p class=MsoNormal><span
+	 style='mso-bookmark:WinZmBookmark_z90995'></span><a href="https://us02web
+	.zoom.us/j/88344794700?pwd=d3JtVUViWXBRNEp1b2FBam5QclJudz09"><span style='
+	mso-bookmark:WinZmBookmark_z90995'>https://us02web.zoom.us/j/88344794700?p
+	wd=d3JtVUViWXBRNEp1b2FBam5QclJudz09</span><span style='mso-bookmark:WinZmB
+	ookmark_z90995'></span></a><span style='mso-bookmark:WinZmBookmark_z90995'
+	><o:p></o:p></span></p><p class=MsoNormal><span style='mso-bookmark:WinZmB
+	ookmark_z90995'><o:p>&nbsp\;</o:p></span></p><p class=MsoNormal><span styl
+	e='mso-bookmark:WinZmBookmark_z90995'>Meeting ID: 883 4479 4700<o:p></o:p>
+	</span></p><p class=MsoNormal><span style='mso-bookmark:WinZmBookmark_z909
+	95'>Passcode: 370746<o:p></o:p></span></p><p class=MsoNormal><span style='
+	mso-bookmark:WinZmBookmark_z90995'>One tap mobile<o:p></o:p></span></p><p 
+	class=MsoNormal><span style='mso-bookmark:WinZmBookmark_z90995'>+125321587
+	82\,\,88344794700#\,\,\,\,*370746# US (Tacoma)<o:p></o:p></span></p><p cla
+	ss=MsoNormal><span style='mso-bookmark:WinZmBookmark_z90995'>+13017158592\
+	,\,88344794700#\,\,\,\,*370746# US (Washington DC)<o:p></o:p></span></p><p
+	 class=MsoNormal><span style='mso-bookmark:WinZmBookmark_z90995'><o:p>&nbs
+	p\;</o:p></span></p><p class=MsoNormal><span style='mso-bookmark:WinZmBook
+	mark_z90995'>Dial by your location<o:p></o:p></span></p><p class=MsoNormal
+	><span style='mso-bookmark:WinZmBookmark_z90995'>&nbsp\;&nbsp\;&nbsp\;&nbs
+	p\;&nbsp\;&nbsp\;&nbsp\; +1 253 215 8782 US (Tacoma)<o:p></o:p></span></p>
+	<p class=MsoNormal><span style='mso-bookmark:WinZmBookmark_z90995'>&nbsp\;
+	&nbsp\;&nbsp\;&nbsp\;&nbsp\;&nbsp\;&nbsp\; +1 301 715 8592 US (Washington 
+	DC)<o:p></o:p></span></p><p class=MsoNormal><span style='mso-bookmark:WinZ
+	mBookmark_z90995'>&nbsp\;&nbsp\;&nbsp\;&nbsp\;&nbsp\;&nbsp\;&nbsp\; +1 312
+	 626 6799 US (Chicago)<o:p></o:p></span></p><p class=MsoNormal><span style
+	='mso-bookmark:WinZmBookmark_z90995'>&nbsp\;&nbsp\;&nbsp\;&nbsp\;&nbsp\;&n
+	bsp\;&nbsp\; +1 346 248 7799 US (Houston)<o:p></o:p></span></p><p class=Ms
+	oNormal><span style='mso-bookmark:WinZmBookmark_z90995'>&nbsp\;&nbsp\;&nbs
+	p\;&nbsp\;&nbsp\;&nbsp\;&nbsp\; +1 646 558 8656 US (New York)<o:p></o:p></
+	span></p><p class=MsoNormal><span style='mso-bookmark:WinZmBookmark_z90995
+	'>&nbsp\;&nbsp\;&nbsp\;&nbsp\;&nbsp\;&nbsp\;&nbsp\; +1 669 900 9128 US (Sa
+	n Jose)<o:p></o:p></span></p><p class=MsoNormal><span style='mso-bookmark:
+	WinZmBookmark_z90995'>Meeting ID: 883 4479 4700<o:p></o:p></span></p><p cl
+	ass=MsoNormal><span style='mso-bookmark:WinZmBookmark_z90995'>Passcode: 37
+	0746<o:p></o:p></span></p><p class=MsoNormal><span style='mso-bookmark:Win
+	ZmBookmark_z90995'>Find your local number: </span><a href="https://us02web
+	.zoom.us/u/kbFOcaEIXS"><span style='mso-bookmark:WinZmBookmark_z90995'>htt
+	ps://us02web.zoom.us/u/kbFOcaEIXS</span><span style='mso-bookmark:WinZmBoo
+	kmark_z90995'></span></a><span style='mso-bookmark:WinZmBookmark_z90995'><
+	/span><a name=WinZmBookmarkEnd></a><o:p></o:p></p><p class=MsoNormal><o:p>
+	&nbsp\;</o:p></p><p class=MsoNormal><o:p>&nbsp\;</o:p></p></div></body></h
+	tml>
+X-MICROSOFT-CDO-BUSYSTATUS:TENTATIVE
+X-MICROSOFT-CDO-IMPORTANCE:1
+X-MICROSOFT-CDO-INTENDEDSTATUS:BUSY
+X-MICROSOFT-DISALLOW-COUNTER:FALSE
+X-MS-OLK-APPTSEQTIME:20220427T193534Z
+X-MS-OLK-AUTOSTARTCHECK:FALSE
+X-MS-OLK-CONFTYPE:0
+BEGIN:VALARM
+TRIGGER:-PT15M
+ACTION:DISPLAY
+DESCRIPTION:Reminder
+END:VALARM
+END:VEVENT
+END:VCALENDAR
+

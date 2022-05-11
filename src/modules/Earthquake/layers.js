@@ -24,8 +24,30 @@ import {
   SirensLayer,
 } from "@layers";
 import { sirensStatuses, forcesTypes } from "@constants";
+import ElectricLayer from "@layers/Electric/ElectricLayer";
+import WaterLayer from "@layers/Water/WaterLayer";
 
 export const layers = {
+  water: {
+    key: "water",
+    isChecked: false,
+    distance: 2,
+    zoom: 8,
+    label: "משאבי מים",
+    component: ({ polygon, distance }) => (
+      <WaterLayer polygon={polygon} distance={distance} />
+    ),
+  },
+  electric: {
+    key: "elctrics",
+    isChecked: false,
+    distance: 2,
+    zoom: 8,
+    label: "תחנת כוח",
+    component: ({ polygon, distance }) => (
+      <ElectricLayer polygon={polygon} distance={distance} />
+    ),
+  },
   cameras: {
     key: "cameras",
     isChecked: false,
