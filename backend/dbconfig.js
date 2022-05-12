@@ -1,12 +1,7 @@
-export const config = {
-//   user: "foo", // sql user
-//   password: "foo", //sql user password
-  server: "127.0.0.1",
-  database: "WaterStations",
-  options: {
-    trustedconnection: true,
-    enableArithAbort: true,
-    // instancename: "SQLEXPRESS", // SQL Server instance name
-  },
-  port: 55892,
-};
+export const sqlConfig = Object.freeze({
+  user: process.env.dbUser ?? "ronit_local",
+  password: process.env.dbPassword ?? "ronit_local",
+  server: process.env.dbUrl ?? "localhost",
+  database: process.env.db ?? "tryout",
+  trustServerCertificate: true,
+});
