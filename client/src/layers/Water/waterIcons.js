@@ -5,6 +5,6 @@ const iconsUrl = "icons/layers/waters";
 export const icons = {
   'waterIcon': L.icon({
     iconUrl: `${iconsUrl}/water-drop.png`,
-    iconSize: [25, 30],
+    iconSize: [30, 40],
   }),
 };
