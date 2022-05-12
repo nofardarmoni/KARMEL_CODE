@@ -33,7 +33,7 @@ const toolTipDataNames = [
     title: 'מחוז פקע"ר -',
   },
   {
-    key: "ELEC_TUSHVIM",
+    key: "ELEC_TUSHAVIM",
     title: 'סה"כ מספר תושבים -',
   },
   {
