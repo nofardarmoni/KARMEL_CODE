@@ -1,58 +1,27 @@
-const express = require('express')
-const app = express()
-const sql = require("mssql");
+var express = require("express");
+var  config = require('./dbconfig');
+var app = express();
 
+app.get("/", function(req, res) {
+  var sql = require("mssql");
 
-app.get('/', (req, res) => {
-  const data = execute()
+  // connect to your database
+  sql.connect(config, function(err) {
+    if (err) console.log(err);
 
-  res.send(data)
-})
-// config for your database
-const config = {
-    user: 'Nofarda',
-    password: '333nofar',
-    server: 'LAPTOP-47SUSM72',
-    database: 'Earthquake',
-    options: {
-      encrypt: true,
-      trustServerCertificate: true
-    }
-};
+    // create Request object
+    var request = new sql.Request();
 
-// async/await style
-const pool1 = new sql.ConnectionPool(config);
-const pool1Connect = pool1.connect();
+    // query to the database and get the records
+    request.query("select * from WaterStations", function(err, recordset) {
+      if (err) console.log(err);
 
-pool1.on('error', err => {
-  console.log(err);
-})
+      // send records as a response
+      res.send(recordset);
+    });
+  });
+});
 
-const sqlQuery = "select * from Water";
-
-async function getWaters() {
-  // ensure pool has been created
-  await pool1Connect;
-
-  try
-  {
-    const request = pool1.request();
-    const result = await request.query(sqlQuery);
-
-    return result.recordset;
-  }
-  catch (err)
-  {
-    console.error('SQL Error', err);
-  }
-}
-
-async function execute()
-{
-  return await getWaters();
-}
-
-app.listen(5000, () => {
-    console.log('Server is runnig on port 5000')
-})
-
+var server = app.listen(5000, function() {
+  console.log("Server is running..");
+});

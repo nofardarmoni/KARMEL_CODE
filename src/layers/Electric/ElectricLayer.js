@@ -37,6 +37,30 @@ function ElectricLayer({ polygon, distance }) {
     options: { placeholderData: layerCache.current },
   });
 
+  const toolTipDataNames = [
+    {
+      key: "XXX",
+      title: "כתובת -",
+    },
+    {
+      key: "XXX",
+      title: "רמת תפקוד -",
+    },
+    {
+      key: "XXX",
+      title: "צפי תיקון -",
+      isConditional: true,
+    },
+    {
+      key: "XXX",
+      title: 'קב"ט -',
+    },
+    {
+      key: "XXX",
+      title: "מספר תושבים -",
+    },
+  ];
+
   // console.log(data)
 
   const iconsUrl = "icons/layers/Electric";
