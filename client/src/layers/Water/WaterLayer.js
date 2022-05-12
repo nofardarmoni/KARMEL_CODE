@@ -4,6 +4,7 @@ import { deepCompareMemo } from "@services";
 import { makeStyles } from "@material-ui/core";
 import { icons } from "./waterIcons";
 import { CustomPopup } from "@core";
+import { useApiQuery } from "@hooks/useApiQuery";
 
 const data = [
   {
@@ -90,6 +91,19 @@ const getDate = (lastUpdateTime) => {
 function WaterLayer({ layerKey, label, polygon, distance, showId }) {
   const classes = useStyles();
   // const layerCache = useRef([]);
+
+  // const { data } = useApiQuery({
+  //   dataPath: "layers/hospitals",
+  //   label: "תחנות מים",
+  //   body: polygon && {
+  //     polygon,
+  //     distanceFromPolygon: distance,
+  //   },
+  //   fetchOnce: true,
+  //   options: {
+  //     placeholderData: layerCache.current,
+  //   },
+  // });
 
   if (!data) return null;
   return (
