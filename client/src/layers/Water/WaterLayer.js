@@ -4,56 +4,47 @@ import { deepCompareMemo } from "@services";
 import { makeStyles } from "@material-ui/core";
 import { icons } from "./waterIcons";
 import { CustomPopup } from "@core";
+import { useRecoilValue, selector, useRecoilState } from "recoil";
 import axios from "axios";
-// const data = [
-//   {
-//     WATER_KEY: "1",
-//     WATER_TAAGID: "הרי נצרת",
-//     WATER_RASHUT: "נצרת",
-//     WATER_NZRIGHT: "32.69764094981775",
-//     WATER_NZLEFT: "32.697639465332",
-//     WATER_MAHOZ: "חיפה",
-//     WATER_TUSHVIM: "80000",
-//     WATER_TUSHVIM_NO_WATER: "56000",
-//     WATER_NEZEK_BAMITKAN: "סדקים",
-//     WATER_RAMAT_TIFKUD_PRECENT: "0.300000011920929",
-//     WATER_RAMAT_HERUM: "4",
-//     WATER_TAHANUT_HALUKA: "40",
-//     WATER_ZMAN_TIKUN_DAYS: "10",
-//   },
-// ];
+import { earthquakeState, magnitodeState } from "../../states/earthquakeState"
 
 const toolTipDataNames = [
   {
-    key: "ELEC_TAAGID",
+    key: "WATER_TAAGID",
     title: "תאגיד מים -",
   },
   {
-    key: "ELEC_MAHOZ",
+    key: "WATER_MAHOZ",
     title: 'מחוז פקע"ר -',
   },
   {
-    key: "ELEC_TUSHAVIM",
+    key: "WATER_TUSHAVIM",
     title: 'סה"כ מספר תושבים -',
   },
   {
-    key: "ELEC_RAMAT_TIFKUD_PRECENT",
+    key: "WATER_RAMAT_TIFKUD_PRECENT",
     title: "רמת תפקוד -",
   },
   {
-    key: "ELEC_TUSHVIM_NO_WATER",
+    key: "WATER_TUSHVIM_NO_WATER",
     title: "מספר תושבים ללא מים -",
   },
   {
-    key: "ELEC_ZMAN_TIKUN_DAYS",
+    key: "WATER_ZMAN_TIKUN_DAYS",
     title: "צפי תיקון בימים -",
     isConditional: true,
   },
+
   {
     key: "WATER_TAHANUT_HALUKA",
     title: "מספר תחנות חלוקה בעת מצב חירום -",
   },
 ];
+
+// const value = selector({
+//   key: 'earthquakeState',
+//   get: ({get}) => get(earthquakeState)
+// })
 
 const useStyles = makeStyles(() => ({
   tootlipTitle: {
@@ -87,9 +78,19 @@ const useStyles = makeStyles(() => ({
 //   return `${day}/${month}/${year}`;
 // };
 
+
+
 function WaterLayer() {
+  const val = useRecoilValue(earthquakeState)
+  const predectitionState = useRecoilState(earthquakeState)
+  const [newMagnitodeState, setNewMagnitodeState] = useRecoilState(magnitodeState)
+
   const classes = useStyles();
   const [waterStationsData, setWaterStationsData] = useState([]);
+
+
+
+
 
   useEffect(() => {
     axios
@@ -97,18 +98,23 @@ function WaterLayer() {
       .then((res) => setWaterStationsData(res.data.recordset));
   }, []);
 
+  const calculatePredection = (waterStation) => {
+    console.log(`waterStation: ${waterStation}`)
+  }
+
   if (!waterStationsData) return null;
   return (
     <>
       {waterStationsData.map((waterStation) => (
+        <div onClick={() => console.log("waterStation: ", waterStation)}>
         <Marker
-          key={waterStation.ELEC_KEY}
-          position={[waterStation.ELEC_NZLEFT, waterStation.ELEC_NZRIGHT]}
+          key={waterStation.WATER_KEY}
+          position={[waterStation.WATER_NZLEFT, waterStation.WATER_NZRIGHT]}
           icon={icons["waterIcon"]}
         >
           <CustomPopup closeButton={false}>
             <div className={classes.tootlipTitle}>
-              רשות - {waterStation.ELEC_RASHUT}
+              רשות - {waterStation.WATER_RASHUT}
             </div>
             <div className={classes.tootlipContent}>
               {toolTipDataNames.map(
@@ -116,18 +122,21 @@ function WaterLayer() {
                   (!row.isConditional ||
                     (row.isConditional &&
                       (waterStation["WATER_RAMAT_TIFKUD_PRECENT"] ?? 0) <
-                        "100")) && (
+                      "100")) && (
                     <div key={row.key}>
-                      {row.title} {waterStation[row.key] ?? "NOT IN DB"}
+                      {row.title} {waterStation[row.key] ?? newMagnitodeState}
+                      {/* {waterStation[row.key] === 'WATER_TUSHAVIM' && calculatePredection(waterStation)} */}
                     </div>
                   )
               )}
             </div>
           </CustomPopup>
         </Marker>
+        </div>
       ))}
     </>
   );
 }
 
 export default deepCompareMemo(WaterLayer);
+

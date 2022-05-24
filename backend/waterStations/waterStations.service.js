@@ -7,7 +7,7 @@ export async function getWaterStations(req,res) {
 
     var request = new sql.Request();
 
-    request.query("select * from WaterStations", function (err, recordset) {
+    request.query("select * from Water_LAYER", function (err, recordset) {
       if (err) console.log(err);
 
       res.send(recordset);
