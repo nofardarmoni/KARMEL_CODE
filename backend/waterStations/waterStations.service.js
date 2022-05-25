@@ -1,7 +1,7 @@
 import { sqlConfig } from "../dbconfig";
 import sql from "mssql";
 
-export async function getWaterStations(req,res) {
+export async function getWaterStations(req, res) {
   sql.connect(sqlConfig, function (err) {
     if (err) console.log(err);
 
