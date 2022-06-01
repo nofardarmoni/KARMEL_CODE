@@ -1,104 +1,98 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Marker } from "react-leaflet";
 import L from "leaflet";
-import { CustomPopup, VideoPlayer } from "@core";
+import { CustomPopup } from "@core";
 import { deepCompareMemo } from "@services";
 import { makeStyles } from "@material-ui/core";
-import { useApiQuery } from "@hooks/useApiQuery";
+import axios from "axios";
+import { earthquakeState, magnitodeState } from "../../states/earthquakeState";
+import { useRecoilState } from "recoil";
+
+const toolTipDataNames = [
+  {
+    key: "ELEC_ADDRESS",
+    title: "כתובת -",
+  },
+  {
+    key: "ELEC_RAMAT_TIFKUD",
+    title: "רמת תפקוד -",
+  },
+  {
+    key: "ELEC_REPAIR_TIME",
+    title: "צפי תיקון -",
+    isConditional: true,
+  },
+  {
+    key: "ELEC_PHONE",
+    title: 'קב"ט -',
+  },
+  {
+    key: "ELEC_TOTAL_CUSTOMERS",
+    title: "מספר תושבים -",
+  },
+];
+
+const iconUrl = "icons/layers/Electric";
+
+const electricIcon = L.icon({
+  iconUrl: `${iconUrl}/lightning.png`,
+  iconSize: [20, 20],
+});
 
 const useStyles = makeStyles(() => ({
-  cameraTitle: {
-    textAlign: "center",
-    color: "white",
-    marginTop: -10,
-    marginBottom: -5,
+  tootlipTitle: {
+    fontSize: 18,
     fontFamily: "AlmoniBold",
-    fontSize: 17,
+    display: "flex",
+    justifyContent: "center",
   },
-  camera: {
-    marginRight: -15,
-    marginLeft: -15,
-    marginBottom: -10,
+  tootlipContent: {
+    fontSize: 14,
+    fontFamily: "AlmoniBold",
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "flex-start",
   },
 }));
 
-function ElectricLayer({ polygon, distance }) {
+function ElectricLayer() {
   const classes = useStyles();
-  const layerCache = useRef([]);
-  const [currentCamera, setCurrentCamera] = useState();
-
-  const { data } = useApiQuery({
-    dataPath: "layers/cameras",
-    label: "תחנות כוח",
-    body: polygon && {
-      polygon,
-      distanceFromPolygon: distance,
-    },
-    options: { placeholderData: layerCache.current },
-  });
-
-  // const toolTipDataNames = [
-  //   {
-  //     key: "XXX",
-  //     title: "כתובת -",
-  //   },
-  //   {
-  //     key: "XXX",
-  //     title: "רמת תפקוד -",
-  //   },
-  //   {
-  //     key: "XXX",
-  //     title: "צפי תיקון -",
-  //     isConditional: true,
-  //   },
-  //   {
-  //     key: "XXX",
-  //     title: 'קב"ט -',
-  //   },
-  //   {
-  //     key: "XXX",
-  //     title: "מספר תושבים -",
-  //   },
-  // ];
-
-  const iconsUrl = "icons/layers/Electric";
-
-  const displayedCameraIcon = L.icon({
-    // put in a separate file
-    iconUrl: `${iconsUrl}/lightning.png`,
-    iconSize: [20, 20],
-  });
-
-  const cameraIcon = L.icon({
-    iconUrl: `${iconsUrl}/lightning.png`,
-    iconSize: [20, 20],
-  });
+  const [electricStationsData, setElectricStationsData] = useState([]);
+  const [newMagnitodeState, setNewMagnitodeState] = useRecoilState(
+    magnitodeState
+  );
 
   useEffect(() => {
-    layerCache.current = data ?? layerCache.current;
-  }, [data]);
+    axios
+      .get(`http://localhost:5000/earthquakeModule/electricStations`)
+      .then((res) => setElectricStationsData(res.data.recordset));
+  }, []);
 
-  if (!data) return null;
+  if (!electricStationsData) return null;
   return (
     <>
-      {data.map((camera) => (
+      {electricStationsData.map((electricStation) => (
         // Create Icon
         <Marker
-          key={camera.link}
-          position={[camera.latitude, camera.longitude]}
-          icon={
-            currentCamera && camera.link === currentCamera.link
-              ? displayedCameraIcon
-              : cameraIcon
-          }
-          eventHandlers={{
-            click: () => setCurrentCamera(camera),
-          }}
+          key={electricStation.ELEC_KEY}
+          position={[electricStation.ELEC_NZLEFT, electricStation.ELEC_NZRIGHT]}
+          icon={electricIcon}
         >
-          <CustomPopup>
-            <div className={classes.cameraTitle}>{camera.name}</div>
-            <div className={classes.camera}>
-              <VideoPlayer cameraLink={camera.link} />
+          <CustomPopup closeButton={false}>
+            <div className={classes.tootlipTitle}>
+              תחנת כוח - {electricStation.ELEC_STATION_NAME}
+            </div>
+            <div className={classes.tootlipContent}>
+              {toolTipDataNames.map(
+                (row, _) =>
+                  (!row.isConditional ||
+                    (row.isConditional &&
+                      (electricStation["ELEC_RAMAT_TIFKUD"] ?? 0) < "100")) && (
+                    <div key={row.key}>
+                      {row.title} {electricStation[row.key] ?? "לא הוזנה"}
+                    </div>
+                  )
+              )}
             </div>
           </CustomPopup>
         </Marker>

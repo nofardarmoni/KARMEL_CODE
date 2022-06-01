@@ -6,7 +6,7 @@ import { icons } from "./waterIcons";
 import { CustomPopup } from "@core";
 import { useRecoilValue, selector, useRecoilState } from "recoil";
 import axios from "axios";
-import { earthquakeState, magnitodeState } from "../../states/earthquakeState"
+import { earthquakeState, magnitodeState } from "../../states/earthquakeState";
 
 const toolTipDataNames = [
   {
@@ -78,19 +78,15 @@ const useStyles = makeStyles(() => ({
 //   return `${day}/${month}/${year}`;
 // };
 
-
-
 function WaterLayer() {
-  const val = useRecoilValue(earthquakeState)
-  const predectitionState = useRecoilState(earthquakeState)
-  const [newMagnitodeState, setNewMagnitodeState] = useRecoilState(magnitodeState)
+  const val = useRecoilValue(earthquakeState);
+  const predectitionState = useRecoilState(earthquakeState);
+  const [newMagnitodeState, setNewMagnitodeState] = useRecoilState(
+    magnitodeState
+  );
 
   const classes = useStyles();
   const [waterStationsData, setWaterStationsData] = useState([]);
-
-
-
-
 
   useEffect(() => {
     axios
@@ -99,39 +95,39 @@ function WaterLayer() {
   }, []);
 
   const calculatePredection = (waterStation) => {
-    console.log(`waterStation: ${waterStation}`)
-  }
+    console.log(`waterStation: ${waterStation}`);
+  };
 
   if (!waterStationsData) return null;
   return (
     <>
       {waterStationsData.map((waterStation) => (
         <div onClick={() => console.log("waterStation: ", waterStation)}>
-        <Marker
-          key={waterStation.WATER_KEY}
-          position={[waterStation.WATER_NZLEFT, waterStation.WATER_NZRIGHT]}
-          icon={icons["waterIcon"]}
-        >
-          <CustomPopup closeButton={false}>
-            <div className={classes.tootlipTitle}>
-              רשות - {waterStation.WATER_RASHUT}
-            </div>
-            <div className={classes.tootlipContent}>
-              {toolTipDataNames.map(
-                (row, _) =>
-                  (!row.isConditional ||
-                    (row.isConditional &&
-                      (waterStation["WATER_RAMAT_TIFKUD_PRECENT"] ?? 0) <
-                      "100")) && (
-                    <div key={row.key}>
-                      {row.title} {waterStation[row.key] ?? newMagnitodeState}
-                      {/* {waterStation[row.key] === 'WATER_TUSHAVIM' && calculatePredection(waterStation)} */}
-                    </div>
-                  )
-              )}
-            </div>
-          </CustomPopup>
-        </Marker>
+          <Marker
+            key={waterStation.WATER_KEY}
+            position={[waterStation.WATER_NZLEFT, waterStation.WATER_NZRIGHT]}
+            icon={icons["waterIcon"]}
+          >
+            <CustomPopup closeButton={false}>
+              <div className={classes.tootlipTitle}>
+                רשות - {waterStation.WATER_RASHUT}
+              </div>
+              <div className={classes.tootlipContent}>
+                {toolTipDataNames.map(
+                  (row, _) =>
+                    (!row.isConditional ||
+                      (row.isConditional &&
+                        (waterStation["WATER_RAMAT_TIFKUD_PRECENT"] ?? 0) <
+                          "100")) && (
+                      <div key={row.key}>
+                        {row.title} {waterStation[row.key] ?? newMagnitodeState}
+                        {/* {waterStation[row.key] === 'WATER_TUSHAVIM' && calculatePredection(waterStation)} */}
+                      </div>
+                    )
+                )}
+              </div>
+            </CustomPopup>
+          </Marker>
         </div>
       ))}
     </>
@@ -139,4 +135,3 @@ function WaterLayer() {
 }
 
 export default deepCompareMemo(WaterLayer);
-
