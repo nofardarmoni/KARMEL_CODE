@@ -102,33 +102,36 @@ function WaterLayer() {
   return (
     <>
       {waterStationsData.map((waterStation) => (
-        <div onClick={() => console.log("waterStation: ", waterStation)}>
-          <Marker
-            key={waterStation.WATER_KEY}
-            position={[waterStation.WATER_NZLEFT, waterStation.WATER_NZRIGHT]}
-            icon={icons["waterIcon"]}
-          >
-            <CustomPopup closeButton={false}>
-              <div className={classes.tootlipTitle}>
-                רשות - {waterStation.WATER_RASHUT}
-              </div>
-              <div className={classes.tootlipContent}>
-                {toolTipDataNames.map(
-                  (row, _) =>
-                    (!row.isConditional ||
-                      (row.isConditional &&
-                        (waterStation["WATER_RAMAT_TIFKUD_PRECENT"] ?? 0) <
-                          "100")) && (
-                      <div key={row.key}>
-                        {row.title} {waterStation[row.key] ?? newMagnitodeState}
-                        {/* {waterStation[row.key] === 'WATER_TUSHAVIM' && calculatePredection(waterStation)} */}
-                      </div>
-                    )
-                )}
-              </div>
-            </CustomPopup>
-          </Marker>
-        </div>
+        <Marker
+          key={waterStation.WATER_KEY}
+          position={[waterStation.WATER_NZLEFT, waterStation.WATER_NZRIGHT]}
+          icon={icons["waterIcon"]}
+          eventHandlers={{
+            click: (_) => {
+              console.log("waterStation: ", waterStation);
+            },
+          }}
+        >
+          <CustomPopup closeButton={false}>
+            <div className={classes.tootlipTitle}>
+              רשות - {waterStation.WATER_RASHUT}
+            </div>
+            <div className={classes.tootlipContent}>
+              {toolTipDataNames.map(
+                (row, _) =>
+                  (!row.isConditional ||
+                    (row.isConditional &&
+                      (waterStation["WATER_RAMAT_TIFKUD_PRECENT"] ?? 0) <
+                        "100")) && (
+                    <div key={row.key}>
+                      {row.title} {waterStation[row.key] ?? newMagnitodeState}
+                      {/* {waterStation[row.key] === 'WATER_TUSHAVIM' && calculatePredection(waterStation)} */}
+                    </div>
+                  )
+              )}
+            </div>
+          </CustomPopup>
+        </Marker>
       ))}
     </>
   );
