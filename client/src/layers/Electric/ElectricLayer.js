@@ -14,7 +14,7 @@ const toolTipDataNames = [
     title: "כתובת -",
   },
   {
-    key: "ELEC_RAMAT_TIFKUD_CALC",
+    key: "ELEC_RAMAT_TIFKUD",
     title: "רמת תפקוד -",
   },
   {
@@ -31,7 +31,7 @@ const toolTipDataNames = [
     title: "מספר תושבים -",
   },
   {
-    key: "ELEC_CUSTEMERS_WITHOUT_ELEC_CALC",
+    key: "ELEC_CUSTEMERS_WITHOUT_ELEC",
     title: "מספר תושבים ללא חשמל-",
   },
 ];
@@ -93,7 +93,7 @@ function ElectricLayer() {
                     (row.isConditional &&
                       (electricStation["ELEC_RAMAT_TIFKUD"] ?? 0) < "100")) && (
                     <div key={row.key}>
-                      {row.title} {electricStation[row.key] ?? "NOT IN DB"}
+                      {row.title} {electricStation[row.key] ?? "לא הוזן"}
                     </div>
                   )
               )}
