@@ -7,6 +7,7 @@ import { makeStyles } from "@material-ui/core";
 import axios from "axios";
 import { earthquakeState, magnitodeState } from "../../states/earthquakeState";
 import { useRecoilState } from "recoil";
+import {statecalc, calc} from "../Water/WaterLayer"
 
 const toolTipDataNames = [
   {
@@ -66,11 +67,29 @@ function ElectricLayer() {
     magnitodeState
   );
 
+  const [magntideRangeState, setMagntideRangeState] = useState(null)
+
+
   useEffect(() => {
     axios
       .get(`http://localhost:5000/earthquakeModule/electricStations`)
       .then((res) => setElectricStationsData(res.data.recordset));
   }, []);
+
+  const getMagnitodeRange = () => {
+    if (newMagnitodeState >= 4.5 && newMagnitodeState <= 4.9) {
+      setMagntideRangeState("ELEC_MAGNITDE_4_5_4_9")
+    } else if (newMagnitodeState >= 5 && newMagnitodeState <= 6.5) {
+      setMagntideRangeState("ELEC_MAGNITDE_4_6_6_5")
+    } else if (newMagnitodeState >= 6.6 && newMagnitodeState <= 7) {
+      setMagntideRangeState("ELEC_MAGNITDE_6_6_7")
+    } else if (newMagnitodeState >= 7.1 && newMagnitodeState <= 7.5) {
+      setMagntideRangeState("ELEC_MAGNITDE_7_1_7_5")
+    } else {
+      setMagntideRangeState("ELEC_MAGNITDE_UP_TO_7_6")
+    }
+  }
+
 
   if (!electricStationsData) return null;
   return (
@@ -81,6 +100,14 @@ function ElectricLayer() {
           key={electricStation.ELEC_KEY}
           position={[electricStation.ELEC_NZLEFT, electricStation.ELEC_NZRIGHT]}
           icon={electricIcon}
+          eventHandlers={{
+            click: (_) => {
+              if (earthquakeState.key !== 'realtime') {
+                getMagnitodeRange()
+                newMagnitodeState && calc(electricStation[magntideRangeState])
+              }
+            },
+          }}
         >
           <CustomPopup closeButton={false}>
             <div className={classes.tootlipTitle}>
@@ -93,7 +120,12 @@ function ElectricLayer() {
                     (row.isConditional &&
                       (electricStation["ELEC_RAMAT_TIFKUD"] ?? 0) < "100")) && (
                     <div key={row.key}>
-                      {row.title} {electricStation[row.key] ?? "לא הוזן"}
+                      {row.title}
+                       {/* {electricStation[row.key] ?? "לא הוזן"} */}
+                       {row.key === "ELEC_RAMAT_TIFKUD" ? 100 - statecalc(earthquakeState.key,electricStation[magntideRangeState], 100,100 - electricStation.ELEC_RAMAT_TIFKUD )+'%' :
+                        row.key === "ELEC_CUSTEMERS_WITHOUT_ELEC" ? parseInt(statecalc(earthquakeState.key,electricStation[magntideRangeState], electricStation.ELEC_TOTAL_CUSTOMERS, electricStation.ELEC_CUSTEMERS_WITHOUT_ELEC)) :
+                        electricStation[row.key]}
+
                     </div>
                   )
               )}

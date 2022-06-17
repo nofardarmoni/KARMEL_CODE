@@ -46,8 +46,8 @@ function MapChildren({ layers, setLayers }) {
 
   return (
     <>
-      <Toolbox layers={layers} setLayers={setLayers} />
-      <button onClick={handlePicStateOnClick} className="MuiButtonBase-root MuiFab-root MuiSpeedDial-fab makeStyles-speedDialFab-44 MuiFab-primary"
+      <Toolbox layers={layers} setLayers={setLayers} />MuiButtonBase-root MuiFab
+      <button onClick={handlePicStateOnClick} className="-root MuiSpeedDial-fab makeStyles-speedDialFab-44 MuiFab-primary"
         style={{ position: 'absolute', top: '20px', left: '85px', zIndex: '1000', height: '50px', backgroundColor: 'rgb(25 25 25)', borderRadius: '5px', width: '100px' }}>תמונת מצב</button>
       <button onClick={handlePredictionOnClick} className="MuiButtonBase-root MuiFab-root MuiSpeedDial-fab makeStyles-speedDialFab-44 MuiFab-primary"
         style={{ position: 'absolute', top: '20px', left: '200px', zIndex: '1000', height: '50px', backgroundColor: 'rgb(25 25 25)', borderRadius: '5px', width: '100px' }}>חיזוי</button>
