@@ -87,20 +87,38 @@ const useStyles = makeStyles(() => ({
 //   return `${day}/${month}/${year}`;
 // };
 
+function myParse(v){
+  console.log("v",typeof v)
+  if (typeof v == 'string'){
+  console.log("555",typeof v)
+    
+    v=v.replace(',','')
+    return parseInt(v)
+  }
+  return v
+}
+
 export const calc = (magntiodeRangeValue, waterT) => {
   const precentegeDamage = peopeleAffectedAmount[magntiodeRangeValue];
-  const poduct = waterT * precentegeDamage;
+  const poduct =   myParse(waterT)* precentegeDamage;
   console.log(`magntiodeRangeValue:    ${magntiodeRangeValue}`);
+  console.log(`waterT:    ${ waterT}`);
+  console.log(`typeof waterT:    ${typeof waterT}`);
   console.log(`precentegeDamage: ${precentegeDamage}`);
   console.log(`poduct: ${poduct}`);
   return poduct;
 };
 export function statecalc(mode, percent, realValue, calcReal) {
   console.log("mode", mode);
+  // console.log("percent", percent);
+  // console.log("realValue", realValue);
+  // console.log("calcReal", calcReal);
   if (mode == "realtime") {
     return calcReal;
   }
-  const res = calc(percent, realValue);
+  const res = calc(percent,  realValue);
+  console.log(`res: ${res}`);
+  
   return res;
 }
 
@@ -117,6 +135,8 @@ function WaterLayer() {
   const [currentLevelOfFunctioning, setCurrentLevelOfFunctioning] = useState(
     ""
   );
+  const [backgroundColorMaker, setBackgroundColorMaker] = useState('blue-water-icon')
+
 
   useEffect(() => {
     axios
@@ -125,7 +145,7 @@ function WaterLayer() {
   }, []);
 
   const calculatePredection = (waterStation) => {
-    console.log(`waterStation: ${waterStation}`);
+    // console.log(`waterStation: ${waterStation}`);
   };
 
   const getMagnitodeRange = () => {
@@ -143,12 +163,13 @@ function WaterLayer() {
   };
 
   const getMarkerColor = (levelOfFunctioning) => {
+    console.log(`levelOfFunctioning: ${typeof levelOfFunctioning}`)
     if (levelOfFunctioning <= 50) {
-      return "red";
+      setBackgroundColorMaker("red-water-icon")
     } else if (levelOfFunctioning < 92) {
-      return "orange";
-    } else if (levelOfFunctioning > 92) {
-      return "green";
+      setBackgroundColorMaker("orange-water-icon")
+    } else  {
+      setBackgroundColorMaker("blue-water-icon")
     }
   };
 
@@ -158,28 +179,27 @@ function WaterLayer() {
     <>
       {waterStationsData.map((waterStation) => (
         <Marker
-          style={{
-            backgroundColor: getMarkerColor(
-              100 -
-                statecalc(
-                  mode,
-                  waterStation[magntideRangeState],
-                  100,
-                  100 - waterStation.WATER_RAMAT_TIPKUD
-                )
-            ),
-          }}
           key={waterStation.WATER_KEY}
           position={[waterStation.WATER_NZLEFT, waterStation.WATER_NZRIGHT]}
-          icon={icons["waterIcon"]}
           eventHandlers={{
             click: (_) => {
               if (mode !== "realtime") {
+                getMarkerColor(
+                  100 -
+                    statecalc(
+                      mode,
+                      waterStation[magntideRangeState],
+                      100,
+                      100 - waterStation.WATER_RAMAT_TIPKUD
+                    )
+                )
                 getMagnitodeRange();
                 newMagnitodeState && calc(waterStation[magntideRangeState]);
               }
             },
           }}
+          icon={icons[backgroundColorMaker]}
+         
         >
           <CustomPopup closeButton={false}>
             <div className={classes.tootlipTitle}>
@@ -197,7 +217,7 @@ function WaterLayer() {
                       {row.title}
 
                       {/* {waterStation[ magntideRangeState]} */}
-                      {row.key === "WATER_ZMAN_TIKUN_DAYS" &&
+                      {waterStation["WATER_RAMAT_TIFKUD_PRECENT"] < "100" && row.key === "WATER_ZMAN_TIKUN_DAYS" &&
                         100 -
                           statecalc(
                             mode,
@@ -208,25 +228,16 @@ function WaterLayer() {
                           "%" ===
                           "100%" &&
                         ""}
+                      {/* {waterStation[ magntideRangeState]} */}
                       {row.key === "WATER_RAMAT_TIFKUD_PRECENT"
                         ? 100 -
-                            statecalc(
-                              mode,
-                              waterStation[magntideRangeState],
-                              100,
-                              100 - waterStation.WATER_RAMAT_TIPKUD
-                            ) +
-                            "%" ===
-                          "100%"
-                          ? ""
-                          : 100 -
-                            statecalc(
-                              mode,
-                              waterStation[magntideRangeState],
-                              100,
-                              100 - waterStation.WATER_RAMAT_TIPKUD
-                            ) +
-                            "%"
+                          statecalc(
+                            mode,
+                            waterStation[magntideRangeState],
+                            100,
+                            100 - waterStation.WATER_RAMAT_TIPKUD
+                          ) +
+                          "%"
                         : row.key === "WATER_TUSHVIM_NO_WATER"
                         ? parseInt(
                             statecalc(
@@ -236,6 +247,15 @@ function WaterLayer() {
                               waterStation.WATER_REAL_TUSHAVIM
                             )
                           )
+                          :row.key === "WATER_TAHANUT_HALUKA"
+                          ? Math.round(
+                            statecalc(
+                              mode,
+                              waterStation[magntideRangeState],
+                              waterStation.WATER_TUSHAVIM,
+                              waterStation.WATER_REAL_TUSHAVIM
+                            )
+                          /2000)
                         : waterStation[row.key]}
                     </div>
                   )

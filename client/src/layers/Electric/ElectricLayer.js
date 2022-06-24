@@ -6,7 +6,8 @@ import { deepCompareMemo } from "@services";
 import { makeStyles } from "@material-ui/core";
 import axios from "axios";
 import { earthquakeState, magnitodeState } from "../../states/earthquakeState";
-import { useRecoilState } from "recoil";
+import { useRecoilValue, selector, useRecoilState } from "recoil";
+
 import {statecalc, calc} from "../Water/WaterLayer"
 
 const toolTipDataNames = [
@@ -61,6 +62,8 @@ const useStyles = makeStyles(() => ({
 }));
 
 function ElectricLayer() {
+  const mode = useRecoilValue(earthquakeState);
+
   const classes = useStyles();
   const [electricStationsData, setElectricStationsData] = useState([]);
   const [newMagnitodeState, setNewMagnitodeState] = useRecoilState(
@@ -122,8 +125,9 @@ function ElectricLayer() {
                     <div key={row.key}>
                       {row.title}
                        {/* {electricStation[row.key] ?? "לא הוזן"} */}
-                       {row.key === "ELEC_RAMAT_TIFKUD" ? 100 - statecalc(earthquakeState.key,electricStation[magntideRangeState], 100,100 - electricStation.ELEC_RAMAT_TIFKUD )+'%' :
-                        row.key === "ELEC_CUSTEMERS_WITHOUT_ELEC" ? parseInt(statecalc(earthquakeState.key,electricStation[magntideRangeState], electricStation.ELEC_TOTAL_CUSTOMERS, electricStation.ELEC_CUSTEMERS_WITHOUT_ELEC)) :
+                       {
+                        row.key === "ELEC_CUSTEMERS_WITHOUT_ELEC" ? parseInt(statecalc(mode,electricStation[magntideRangeState], electricStation.ELEC_TOTAL_CUSTOMERS, electricStation.ELEC_CUSTEMERS_WITHOUT_ELEC)) :
+                        row.key === "ELEC_RAMAT_TIFKUD" ? 100 - statecalc(mode,electricStation[magntideRangeState], 100,100 - parseInt(electricStation.ELEC_RAMAT_TIFKUD) )+'%' :
                         electricStation[row.key]}
 
                     </div>
