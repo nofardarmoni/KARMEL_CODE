@@ -8,7 +8,7 @@ import axios from "axios";
 import { earthquakeState, magnitodeState } from "../../states/earthquakeState";
 import { useRecoilValue, selector, useRecoilState } from "recoil";
 
-import {statecalc, calc} from "../Water/WaterLayer"
+import { statecalc, calc } from "../Water/WaterLayer";
 
 const toolTipDataNames = [
   {
@@ -41,7 +41,7 @@ const toolTipDataNames = [
 const iconUrl = "icons/layers/Electric";
 
 const electricIcon = L.icon({
-  iconUrl: `${iconUrl}/lightning.png`,
+  iconUrl: `${iconUrl}/lightning-green.png`,
   iconSize: [20, 20],
 });
 
@@ -70,8 +70,7 @@ function ElectricLayer() {
     magnitodeState
   );
 
-  const [magntideRangeState, setMagntideRangeState] = useState(null)
-
+  const [magntideRangeState, setMagntideRangeState] = useState(null);
 
   useEffect(() => {
     axios
@@ -81,18 +80,17 @@ function ElectricLayer() {
 
   const getMagnitodeRange = () => {
     if (newMagnitodeState >= 4.5 && newMagnitodeState <= 4.9) {
-      setMagntideRangeState("ELEC_MAGNITDE_4_5_4_9")
+      setMagntideRangeState("ELEC_MAGNITDE_4_5_4_9");
     } else if (newMagnitodeState >= 5 && newMagnitodeState <= 6.5) {
-      setMagntideRangeState("ELEC_MAGNITDE_4_6_6_5")
+      setMagntideRangeState("ELEC_MAGNITDE_4_6_6_5");
     } else if (newMagnitodeState >= 6.6 && newMagnitodeState <= 7) {
-      setMagntideRangeState("ELEC_MAGNITDE_6_6_7")
+      setMagntideRangeState("ELEC_MAGNITDE_6_6_7");
     } else if (newMagnitodeState >= 7.1 && newMagnitodeState <= 7.5) {
-      setMagntideRangeState("ELEC_MAGNITDE_7_1_7_5")
+      setMagntideRangeState("ELEC_MAGNITDE_7_1_7_5");
     } else {
-      setMagntideRangeState("ELEC_MAGNITDE_UP_TO_7_6")
+      setMagntideRangeState("ELEC_MAGNITDE_UP_TO_7_6");
     }
-  }
-
+  };
 
   if (!electricStationsData) return null;
   return (
@@ -105,9 +103,9 @@ function ElectricLayer() {
           icon={electricIcon}
           eventHandlers={{
             click: (_) => {
-              if (earthquakeState.key !== 'realtime') {
-                getMagnitodeRange()
-                newMagnitodeState && calc(electricStation[magntideRangeState])
+              if (earthquakeState.key !== "realtime") {
+                getMagnitodeRange();
+                newMagnitodeState && calc(electricStation[magntideRangeState]);
               }
             },
           }}
@@ -121,15 +119,29 @@ function ElectricLayer() {
                 (row, _) =>
                   (!row.isConditional ||
                     (row.isConditional &&
-                      (electricStation["ELEC_RAMAT_TIFKUD"] ?? 0) < "100")) && (
+                      (parseFloat(electricStation["ELEC_RAMAT_TIFKUD"]) ?? 0) < 100)) && (
                     <div key={row.key}>
                       {row.title}
-                       {/* {electricStation[row.key] ?? "לא הוזן"} */}
-                       {
-                        row.key === "ELEC_CUSTEMERS_WITHOUT_ELEC" ? parseInt(statecalc(mode,electricStation[magntideRangeState], electricStation.ELEC_TOTAL_CUSTOMERS, electricStation.ELEC_CUSTEMERS_WITHOUT_ELEC)) :
-                        row.key === "ELEC_RAMAT_TIFKUD" ? 100 - statecalc(mode,electricStation[magntideRangeState], 100,100 - parseInt(electricStation.ELEC_RAMAT_TIFKUD) )+'%' :
-                        electricStation[row.key]}
-
+                      {/* {electricStation[row.key] ?? "לא הוזן"} */}
+                      {row.key === "ELEC_CUSTEMERS_WITHOUT_ELEC"
+                        ? parseInt(
+                            statecalc(
+                              mode,
+                              electricStation[magntideRangeState],
+                              electricStation.ELEC_TOTAL_CUSTOMERS,
+                              electricStation.ELEC_CUSTEMERS_WITHOUT_ELEC
+                            )
+                          )
+                        : row.key === "ELEC_RAMAT_TIFKUD"
+                        ? 100 -
+                          statecalc(
+                            mode,
+                            electricStation[magntideRangeState],
+                            100,
+                            100 - parseInt(electricStation.ELEC_RAMAT_TIFKUD)
+                          ) +
+                          "%"
+                        : electricStation[row.key]}
                     </div>
                   )
               )}
