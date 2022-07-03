@@ -9,6 +9,7 @@ import {
 } from "recharts";
 import { makeStyles } from "@material-ui/core";
 import { numberWithCommas, percentage } from "@services";
+import { YAxis } from "recharts";
 
 const useTooltipStyles = makeStyles(() => ({
   tooltipContainer: {
@@ -32,20 +33,20 @@ const colors = [
   "#4D8BC8",
   "#40748C",
   "#395957",
-  "#23333A",
-];
+  "#F3333F",
+].reverse();
 
 const CustomTooltip = (props) => {
   const tooltipClasses = useTooltipStyles();
 
   return (
     <div className={tooltipClasses.tooltipContainer}>
-      <div className={tooltipClasses.tooltipAges}>גילאים: {props.label}</div>
+      <div className={tooltipClasses.tooltipAges}>רשות מים: {props.label}</div>
       <div>כמות: {numberWithCommas(props.payload[0]?.value)} תושבים</div>
-      <div className={tooltipClasses.tooltipPercentage}>
+      {/* <div className={tooltipClasses.tooltipPercentage}>
         {percentage(props.payload[0]?.value, props.total)}% מכלל האוכלוסיה
         באיזור
-      </div>
+      </div> */}
     </div>
   );
 };
@@ -76,12 +77,13 @@ const VerticalBar = ({ data, total }) => {
     <ResponsiveContainer width="95%" height="100%">
       <BarChart data={bars}>
         <XAxis
-          dataKey="age"
+          dataKey="rashut"
           interval={0}
           tick={<CustomizedAxisTick />}
           height={18}
+          label={{ value: 'רשות מים', position: 'insideBottomRight', offset: 0,color:"white" }} scale="band"
         />
-
+        <YAxis label={{ value: 'כמות אוכלוסיה', angle: -90, position: 'insideLeft', color: "white" }} />
         <Tooltip content={<CustomTooltip total={total} />} />
         <Bar dataKey="count" />
       </BarChart>

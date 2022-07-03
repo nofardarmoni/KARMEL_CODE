@@ -31,7 +31,7 @@ const toolTipDataNames = [
     title: 'סה"כ מספר תושבים -',
   },
   {
-    key: "WATER_RAMAT_TIFKUD_PRECENT",
+    key: "WATER_RAMAT_TIPKUD",
     title: "רמת תפקוד -",
   },
   {
@@ -167,11 +167,11 @@ function WaterLayer() {
   const getMarkerColor = (levelOfFunctioning) => {
     console.log(`levelOfFunctioning: ${typeof levelOfFunctioning}`);
     if (levelOfFunctioning <= 50) {
-      setBackgroundColorMaker("red-water-icon");
+      return "red-water-icon";
     } else if (levelOfFunctioning < 92) {
-      setBackgroundColorMaker("orange-water-icon");
+      return "orange-water-icon";
     } else {
-      setBackgroundColorMaker("blue-water-icon");
+      return "blue-water-icon";
     }
   };
 
@@ -188,19 +188,25 @@ function WaterLayer() {
               if (mode !== "realtime") {
                 getMarkerColor(
                   100 -
-                    statecalc(
-                      mode,
-                      waterStation[magntideRangeState],
-                      100,
-                      100 - waterStation.WATER_RAMAT_TIPKUD
-                    )
+                  statecalc(
+                    mode,
+                    waterStation[magntideRangeState],
+                    100,
+                    100 - waterStation.WATER_RAMAT_TIPKUD
+                  )
                 );
                 getMagnitodeRange();
                 newMagnitodeState && calc(waterStation[magntideRangeState]);
               }
             },
           }}
-          icon={icons[backgroundColorMaker]}
+          icon={icons[getMarkerColor(100 -
+            statecalc(
+              mode,
+              waterStation[magntideRangeState],
+              100,
+              100 - waterStation.WATER_RAMAT_TIPKUD
+            ))]}
         >
           <CustomPopup closeButton={false}>
             <div className={classes.tootlipTitle}>
@@ -211,37 +217,37 @@ function WaterLayer() {
                 (row, _) =>
                   (!row.isConditional ||
                     (row.isConditional &&
-                      (parseFloat(waterStation["WATER_RAMAT_TIFKUD_PRECENT"]) ??
+                      (parseFloat(waterStation["WATER_RAMAT_TIPKUD"]) ??
                         0) < 100)) && (
                     <div key={row.key}>
                       {/* {console.log(`calaculation : ${waterStation.w}`)} */}
                       {row.title}
 
                       {/* {waterStation[ magntideRangeState]} */}
-                      {waterStation["WATER_RAMAT_TIFKUD_PRECENT"] < "100" &&
+                      {waterStation["WATER_RAMAT_TIPKUD"] < "100" &&
                         row.key === "WATER_ZMAN_TIKUN_DAYS" &&
                         100 -
-                          statecalc(
-                            mode,
-                            waterStation[magntideRangeState],
-                            100,
-                            100 - waterStation.WATER_RAMAT_TIPKUD
-                          ) +
-                          "%" ===
-                          "100%" &&
+                        statecalc(
+                          mode,
+                          waterStation[magntideRangeState],
+                          100,
+                          100 - waterStation.WATER_RAMAT_TIPKUD
+                        ) +
+                        "%" ===
+                        "100%" &&
                         ""}
                       {/* {waterStation[ magntideRangeState]} */}
-                      {row.key === "WATER_RAMAT_TIFKUD_PRECENT"
+                      {row.key === "WATER_RAMAT_TIPKUD"
                         ? 100 -
-                          statecalc(
-                            mode,
-                            waterStation[magntideRangeState],
-                            100,
-                            100 - waterStation.WATER_RAMAT_TIPKUD
-                          ) +
-                          "%"
+                        statecalc(
+                          mode,
+                          waterStation[magntideRangeState],
+                          100,
+                          100 - waterStation.WATER_RAMAT_TIPKUD
+                        ) +
+                        "%"
                         : row.key === "WATER_TUSHVIM_NO_WATER"
-                        ? parseInt(
+                          ? parseInt(
                             statecalc(
                               mode,
                               waterStation[magntideRangeState],
@@ -249,16 +255,16 @@ function WaterLayer() {
                               waterStation.WATER_REAL_TUSHAVIM
                             )
                           )
-                        : row.key === "WATER_TAHANUT_HALUKA"
-                        ? Math.round(
-                            statecalc(
-                              mode,
-                              waterStation[magntideRangeState],
-                              waterStation.WATER_TUSHAVIM,
-                              waterStation.WATER_REAL_TUSHAVIM
-                            ) / 2000
-                          )
-                        : waterStation[row.key]}
+                          : row.key === "WATER_TAHANUT_HALUKA"
+                            ? Math.round(
+                              statecalc(
+                                mode,
+                                waterStation[magntideRangeState],
+                                waterStation.WATER_TUSHAVIM,
+                                waterStation.WATER_REAL_TUSHAVIM
+                              ) / 2000
+                            )
+                            : waterStation[row.key]}
                     </div>
                   )
               )}

@@ -9,6 +9,7 @@ import { earthquakeState, magnitodeState } from "../../states/earthquakeState";
 import { useRecoilValue, selector, useRecoilState } from "recoil";
 
 import { statecalc, calc } from "../Water/WaterLayer";
+import { icons } from "./electricIcons";
 
 const toolTipDataNames = [
   {
@@ -92,6 +93,17 @@ function ElectricLayer() {
     }
   };
 
+  const getMarkerColor = (levelOfFunctioning) => {
+    console.log(`levelOfFunctioning: ${typeof levelOfFunctioning}`);
+    if (levelOfFunctioning <= 50) {
+      return "lightning-red";
+    } else if (levelOfFunctioning < 92) {
+      return "lightning-yellow";
+    } else {
+      return "lightning-green";
+    }
+  };
+
   if (!electricStationsData) return null;
   return (
     <>
@@ -100,7 +112,13 @@ function ElectricLayer() {
         <Marker
           key={electricStation.ELEC_KEY}
           position={[electricStation.ELEC_NZLEFT, electricStation.ELEC_NZRIGHT]}
-          icon={electricIcon}
+          icon={icons[getMarkerColor(100 -
+            statecalc(
+              mode,
+              electricStation[magntideRangeState],
+              100,
+              100 - parseInt(electricStation.ELEC_RAMAT_TIFKUD)
+            ))]}
           eventHandlers={{
             click: (_) => {
               if (earthquakeState.key !== "realtime") {
@@ -125,15 +143,15 @@ function ElectricLayer() {
                       {/* {electricStation[row.key] ?? "לא הוזן"} */}
                       {row.key === "ELEC_CUSTEMERS_WITHOUT_ELEC"
                         ? parseInt(
-                            statecalc(
-                              mode,
-                              electricStation[magntideRangeState],
-                              electricStation.ELEC_TOTAL_CUSTOMERS,
-                              electricStation.ELEC_CUSTEMERS_WITHOUT_ELEC
-                            )
+                          statecalc(
+                            mode,
+                            electricStation[magntideRangeState],
+                            electricStation.ELEC_TOTAL_CUSTOMERS,
+                            electricStation.ELEC_CUSTEMERS_WITHOUT_ELEC
                           )
+                        )
                         : row.key === "ELEC_RAMAT_TIFKUD"
-                        ? 100 -
+                          ? 100 -
                           statecalc(
                             mode,
                             electricStation[magntideRangeState],
@@ -141,7 +159,7 @@ function ElectricLayer() {
                             100 - parseInt(electricStation.ELEC_RAMAT_TIFKUD)
                           ) +
                           "%"
-                        : electricStation[row.key]}
+                          : electricStation[row.key]}
                     </div>
                   )
               )}

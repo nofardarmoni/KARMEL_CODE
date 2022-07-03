@@ -15,6 +15,32 @@ import { currentModuleState } from "@states/moduleState";
 import { layers as moduleLayers } from "./layers";
 import { currentEventState, eventListState } from "@states/eventState";
 import { earthquakeState, magnitodeState } from "../../states/earthquakeState";
+import { Button } from "@material-ui/core";
+import { BIButton, BIPanel } from "@features/bi";
+import { DistributionStationsGraph, HospitalsGraph, WaterBarGraph, WaterDistributionGraph, WaterGraph } from "@features/graphs";
+
+const BI_PANEL_MIN_WIDTH = 450;
+const BI_PANEL_MIN_HEIGHT = 260;
+
+function BI() {
+  const [isBIPanelOpen, setIsBIPanelOpen] = useState(false);
+
+  return (
+    <>
+      <BIButton onClick={() => setIsBIPanelOpen(!isBIPanelOpen)} />
+      <BIPanel
+        isOpen={isBIPanelOpen}
+        sizePerColumn={BI_PANEL_MIN_WIDTH}
+        sizePerRow={BI_PANEL_MIN_HEIGHT}
+      >
+        <WaterBarGraph />
+        <WaterGraph />
+        <DistributionStationsGraph />
+        <WaterDistributionGraph />
+      </BIPanel>
+    </>
+  );
+}
 
 function MapChildren({ layers, setLayers }) {
   const [showMagnitodaInput, setShowMagnitodaInput] = useState(false);
@@ -74,7 +100,7 @@ function MapChildren({ layers, setLayers }) {
         style={{
           position: "absolute",
           top: "20px",
-          left: "85px",
+          left: "185px",
           zIndex: "1000",
           height: "50px",
           backgroundColor: "rgb(25 25 25)",
@@ -91,7 +117,7 @@ function MapChildren({ layers, setLayers }) {
         style={{
           position: "absolute",
           top: "20px",
-          left: "200px",
+          left: "300px",
           zIndex: "1000",
           height: "50px",
           backgroundColor: "rgb(25 25 25)",
@@ -113,7 +139,7 @@ function MapChildren({ layers, setLayers }) {
           display: showMagnitodaInput ? "block" : "none",
           position: "absolute",
           top: "20px",
-          left: "350px",
+          left: "420px",
           zIndex: "1000",
           height: "50px",
           backgroundColor: "rgb(25 25 25)",
@@ -122,23 +148,25 @@ function MapChildren({ layers, setLayers }) {
           color: "white",
         }}
       />
-      <button
+      <Button
         style={{
           display: showMagnitodaInput ? "block" : "none",
           position: "absolute",
           top: "80px",
-          left: "350px",
+          left: "420px",
           zIndex: "500",
           height: "20px",
           backgroundColor: "rgb(25 25 25)",
           borderRadius: "5px",
           width: "100px",
           color: "white",
+          textAlign: "center",
+          justifyContent: "center",
         }}
         onClick={handlePredictionOnClick}
       >
         הפעל חיזוי
-      </button>
+      </Button>
       <LayerDisplayer layers={layers} showLayers={true} />
     </>
   );
@@ -179,6 +207,8 @@ export default function EarthquakeModule() {
         <SearchGeocoder />
       </Map>
       <Events />
+
+      <BI />
     </>
   );
 }

@@ -119,7 +119,7 @@ export default function Toolbox({ layers, setLayers, defensePolicyOptions }) {
           closeFeature(navigationFlag, setNavigationFlag);
         }
       },
-      modules: ["HFC", "Medicine", "Tikshuv", "Atal"],
+      modules: ["HFC", "Medicine", "Tikshuv", "Atal","Earthquake"],
     },
     defensePolicyPlanner: {
       icon: defensePolicyFlag ? <CloseIcon /> : <BuildIcon />,

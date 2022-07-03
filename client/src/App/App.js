@@ -11,6 +11,7 @@ import { AlertedAreasSubscriber } from "@features/alerted-areas";
 import { useIsFetching } from "react-query";
 import { makeStyles } from "@material-ui/core/styles";
 import CircularProgress from "@material-ui/core/CircularProgress";
+import { Earthquake } from "@modules";
 // import { useEnv } from "@hooks/useEnv";
 
 const useStyles = makeStyles(() => ({
@@ -43,8 +44,7 @@ export default function App() {
       <MissileSubscriber />
       <AlertedAreasSubscriber />
 
-      <ModuleNavigator />
-      <ModuleDisplayer />
+      <Earthquake />
 
       <ErrorSnackbar />
       <Chatbot />

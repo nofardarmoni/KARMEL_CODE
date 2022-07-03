@@ -8,11 +8,11 @@ export const icons = {
     iconSize: [30, 40],
   }),
   'red-water-icon': L.icon({
-    iconUrl: `${iconsUrl}/red-water-drop.jpeg`,
+    iconUrl: `${iconsUrl}/red-water-drop.png`,
     iconSize: [30, 40],
   }),
   'orange-water-icon': L.icon({
-    iconUrl: `${iconsUrl}/orange-water-drop.jpeg`,
+    iconUrl: `${iconsUrl}/orange-water-drop.png`,
     iconSize: [30, 40],
   }),
 };

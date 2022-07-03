@@ -11,3 +11,7 @@ export { default as FailureTypeGraph } from "./FailureTypeGraph/FailureTypeGraph
 export { default as SirensActivityGraph } from "./SirensActivityGraph/SirensActivityGraph";
 export { default as SirensStatusDetails } from "./SirensStatusDetails/SirensStatusDetails";
 export { default as MovilimGraph } from "./MovilimGraph/MovilimGraph";
+export { default as WaterGraph } from "./WaterGraph/WaterGraph";
+export { default as WaterBarGraph } from "./WaterGraph/WaterBarGraph";
+export { default as DistributionStationsGraph } from "./WaterGraph/DistributionStationsGraph";
+export { default as WaterDistributionGraph } from "./WaterGraph/WaterDistributionGraph";
