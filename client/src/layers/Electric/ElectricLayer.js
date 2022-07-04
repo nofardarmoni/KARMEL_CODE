@@ -73,6 +73,7 @@ function ElectricLayer() {
 
   const [magntideRangeState, setMagntideRangeState] = useState(null);
 
+  useEffect(() => getMagnitodeRange())
   useEffect(() => {
     axios
       .get(`http://localhost:5000/earthquakeModule/electricStations`)
@@ -95,6 +96,9 @@ function ElectricLayer() {
 
   const getMarkerColor = (levelOfFunctioning) => {
     console.log(`levelOfFunctioning: ${typeof levelOfFunctioning}`);
+    if (newMagnitodeState < 4.5) {
+      return "lightning-green";
+    }
     if (levelOfFunctioning <= 50) {
       return "lightning-red";
     } else if (levelOfFunctioning < 92) {
@@ -122,7 +126,6 @@ function ElectricLayer() {
           eventHandlers={{
             click: (_) => {
               if (earthquakeState.key !== "realtime") {
-                getMagnitodeRange();
                 newMagnitodeState && calc(electricStation[magntideRangeState]);
               }
             },

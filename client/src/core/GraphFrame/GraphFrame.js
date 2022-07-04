@@ -12,7 +12,7 @@ const useStyles = makeStyles(() => ({
     width: "100%",
   },
   graphContainer: {
-    height: "95%",
+    height: "85%",
     width: "100%",
   },
   graphTitle: {

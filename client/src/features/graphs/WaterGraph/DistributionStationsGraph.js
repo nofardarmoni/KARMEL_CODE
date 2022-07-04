@@ -92,24 +92,23 @@ function DistributionStationsGraph({ event }) {
 
     const [waterStationsData, setWaterStationsData] = useState([]);
 
+    useEffect(() => getMagnitodeRange())
+
     useEffect(() => {
-        getMagnitodeRange();
         axios
             .get(`http://localhost:5000/earthquakeModule/waterStations`)
             .then((res) => setWaterStationsData(res.data.recordset));
     }, []);
     console.log(waterStationsData);
 
-    const totalCount = Math.ceil(useMemo(() => waterStationsData.reduce((acc, waterStation) => acc + parseInt(
+    const totalCount = Math.ceil(waterStationsData.reduce((acc, waterStation) => acc + parseInt(
         statecalc(
             mode,
             waterStation[magntideRangeState],
             waterStation.WATER_TUSHAVIM,
             waterStation.WATER_REAL_TUSHAVIM
         )
-    ), 0), [
-        waterStationsData,
-    ]) / 2000);
+    ), 0) / 2000);
 
     // const totalCount = parseInt(
     //     statecalc(
@@ -123,7 +122,7 @@ function DistributionStationsGraph({ event }) {
     console.log("totalCount:", totalCount);
     return (
         <GraphFrame
-            hideGraph={!totalCount}
+            hideGraph={!totalCount || newMagnitodeState < 4.5}
             title="כמות תחנות חלוקה"
             alternativeDesc={"אין נתונים על תחנות חלוקה"}
         >

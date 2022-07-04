@@ -17,10 +17,10 @@ import { currentEventState, eventListState } from "@states/eventState";
 import { earthquakeState, magnitodeState } from "../../states/earthquakeState";
 import { Button } from "@material-ui/core";
 import { BIButton, BIPanel } from "@features/bi";
-import { DistributionStationsGraph, HospitalsGraph, WaterBarGraph, WaterDistributionGraph, WaterGraph } from "@features/graphs";
+import { DistributionStationsGraph, ElectricBarGraph, ElectricGraph, HospitalsGraph, WaterBarGraph, WaterDistributionGraph, WaterGraph, ElectricBarGraphRT, GeneralGraph } from "@features/graphs";
 
 const BI_PANEL_MIN_WIDTH = 450;
-const BI_PANEL_MIN_HEIGHT = 260;
+const BI_PANEL_MIN_HEIGHT = 200;
 
 function BI() {
   const [isBIPanelOpen, setIsBIPanelOpen] = useState(false);
@@ -32,11 +32,19 @@ function BI() {
         isOpen={isBIPanelOpen}
         sizePerColumn={BI_PANEL_MIN_WIDTH}
         sizePerRow={BI_PANEL_MIN_HEIGHT}
+        graphsPerRow={3}
       >
         <WaterBarGraph />
         <WaterGraph />
         <DistributionStationsGraph />
         <WaterDistributionGraph />
+
+
+        <ElectricBarGraph />
+        <ElectricGraph />
+        <ElectricBarGraphRT />
+
+        <GeneralGraph />
       </BIPanel>
     </>
   );
@@ -66,7 +74,7 @@ function MapChildren({ layers, setLayers }) {
   //   }
   // }, [newEarthquakeState]);
 
-  const handlePredictionOnClick = (checkMagnitode= true) => {
+  const handlePredictionOnClick = (checkMagnitode = true) => {
     if (checkMagnitode && (magnitode < 4.5 || magnitode > 10)) {
       alert("יש להכניס מגניטודה בין 4.5-10");
       setMagnitode(0);
@@ -106,7 +114,7 @@ function MapChildren({ layers, setLayers }) {
           backgroundColor: "rgb(25 25 25)",
           borderRadius: "5px",
           width: "100px",
-          border: `1px solid ${whiteBorderRealTimeBtn}`,
+          border: `3px solid ${whiteBorderRealTimeBtn}`,
         }}
       >
         תמונת מצב
@@ -123,7 +131,7 @@ function MapChildren({ layers, setLayers }) {
           backgroundColor: "rgb(25 25 25)",
           borderRadius: "5px",
           width: "100px",
-          border: `1px solid ${whiteBorderPredictBtn}`,
+          border: `3px solid ${whiteBorderPredictBtn}`,
         }}
       >
         חיזוי
@@ -153,9 +161,9 @@ function MapChildren({ layers, setLayers }) {
           display: showMagnitodaInput ? "block" : "none",
           position: "absolute",
           top: "80px",
-          left: "420px",
+          left: "425px",
           zIndex: "500",
-          height: "20px",
+          height: "max-content",
           backgroundColor: "rgb(25 25 25)",
           borderRadius: "5px",
           width: "100px",

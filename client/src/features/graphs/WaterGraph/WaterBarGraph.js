@@ -14,6 +14,7 @@ import axios from "axios";
 import { statecalc } from "@layers/Water/WaterLayer";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { earthquakeState, magnitodeState } from "@states/earthquakeState";
+
 // נצרת 
 // יפיע
 // אכסאל
@@ -118,7 +119,7 @@ const useStyles = makeStyles(() => ({
     },
 }));
 
-function WaterBarGraph({ event }) {
+function WaterBarGraph({ }) {
     const classes = useStyles();
     const dataCache = useRef({});
     const mode = useRecoilValue(earthquakeState);
@@ -140,61 +141,19 @@ function WaterBarGraph({ event }) {
         }
     };
 
-    //   const { data: disabledVoltageSirensPolygons } = useApiQuery({
-    //     dataPath: "sirens/get-sirens",
-    //     label: "שכבת צופרים מושבתי מתח רשת",
-    //     body: {
-    //       wktPolygon: polygonToWKT(event?.polygon),
-    //       status: sirensStatuses.disabled.value,
-    //       voltage: true,
-    //     },
-    //     options: {
-    //       select: (data) =>
-    //         data.flatMap((siren) =>
-    //           siren.coverage && siren.alertCount === 0 ? [siren.coverage] : []
-    //         ),
-    //     },
-    //   });
-
-    //   const polygons = [
-    //     ...(disabledSirensPolygons ?? []),
-    //     ...(disabledVoltageSirensPolygons ?? []),
-    //   ];
-
-    //   const { data } = useApiQuery({
-    //     dataPath: `layers/${dataName}`,
-    //     label: "אוכלוסייה ללא התרעה",
-    //     fetchOnce: true,
-    //     body: {
-    //       polygon: polygons,
-    //       isPrecise: isPrecise(event),
-    //       isNotAlerted: true,
-    //     },
-    //     options: {
-    //       enabled: polygons.length > 0,
-    //       placeholderData: dataCache.current,
-    //       onSuccess: (data) => (dataCache.current = data),
-    //     },
-    //   });
-
-    //   const totalCount = useMemo(() => calculateTotalPopulation(data ?? {}), [
-    //     data,
-    //   ]);
-
     const [waterStationsData, setWaterStationsData] = useState([]);
 
     useEffect(() => {
         getMagnitodeRange();
     })
-    
+
     useEffect(() => {
         axios
             .get(`http://localhost:5000/earthquakeModule/waterStations`)
             .then((res) => setWaterStationsData(res.data.recordset));
     }, []);
-    console.log(waterStationsData);
 
-    const data = useMemo(() => waterStationsData.map((waterStation) => ({
+    const graphData = waterStationsData.map((waterStation) => ({
         rashut: waterStation.WATER_RASHUT, count: parseInt(
             statecalc(
                 mode,
@@ -203,24 +162,15 @@ function WaterBarGraph({ event }) {
                 waterStation.WATER_REAL_TUSHAVIM
             )
         )
-    })).sort((a, b) => b.count - a.count))
-    console.log("waterbargraph:", data);
-    // const totalCount = parseInt(
-    //     statecalc(
-    //         mode,
-    //         waterStationsData[1][magntideRangeState],
-    //         waterStationsData[1].WATER_TUSHAVIM,
-    //         waterStationsData[1].WATER_REAL_TUSHAVIM
-    //     )
-    // )
+    })).sort((a, b) => b.count - a.count);
 
     return (
         <GraphFrame
-            hideGraph={false}
+            hideGraph={graphData.length === 0 || newMagnitodeState < 4.5}
             title="פילוח כמות אוכלוסייה ללא מים"
             alternativeDesc={"אין נתונים על אוכלוסייה ללא מים"}
         >
-            <VerticalBarChart data={data} />
+            <VerticalBarChart data={graphData} xAxisLabel="רשות מים" yAxisLabel="נפשות" subTitle="תושבים" subLabel="כמות"   />
         </GraphFrame>
     );
 }

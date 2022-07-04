@@ -139,7 +139,7 @@ function WaterLayer() {
   const [backgroundColorMaker, setBackgroundColorMaker] = useState(
     "blue-water-icon"
   );
-
+  useEffect(() => getMagnitodeRange())
   useEffect(() => {
     axios
       .get(`http://localhost:5000/earthquakeModule/waterStations`)
@@ -166,6 +166,9 @@ function WaterLayer() {
 
   const getMarkerColor = (levelOfFunctioning) => {
     console.log(`levelOfFunctioning: ${typeof levelOfFunctioning}`);
+    if (newMagnitodeState < 4.5) {
+      return "blue-water-icon";
+    }
     if (levelOfFunctioning <= 50) {
       return "red-water-icon";
     } else if (levelOfFunctioning < 92) {
@@ -195,7 +198,6 @@ function WaterLayer() {
                     100 - waterStation.WATER_RAMAT_TIPKUD
                   )
                 );
-                getMagnitodeRange();
                 newMagnitodeState && calc(waterStation[magntideRangeState]);
               }
             },

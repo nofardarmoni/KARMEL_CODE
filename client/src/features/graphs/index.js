@@ -15,3 +15,7 @@ export { default as WaterGraph } from "./WaterGraph/WaterGraph";
 export { default as WaterBarGraph } from "./WaterGraph/WaterBarGraph";
 export { default as DistributionStationsGraph } from "./WaterGraph/DistributionStationsGraph";
 export { default as WaterDistributionGraph } from "./WaterGraph/WaterDistributionGraph";
+export { default as ElectricGraph } from "./ElectricGraph/ElectricGraph";
+export { default as ElectricBarGraph } from "./ElectricGraph/ElectricBarGraph";
+export { default as ElectricBarGraphRT } from "./ElectricGraph/ElectricBarGraphRT";
+export { default as GeneralGraph } from "./GeneralGraph/GeneralGraph";
