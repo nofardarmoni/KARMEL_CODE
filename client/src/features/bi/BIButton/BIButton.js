@@ -8,23 +8,25 @@ const useStyles = makeStyles(() => ({
     position: "absolute",
     left: ({ left }) => left ?? 110,
     top: ({ top }) => top,
+    right: ({ right }) => right,
+    bottom: ({ bottom }) => bottom,
     width: 60,
     height: 60,
     color: "white",
-    boxShadow: "0 0 10px #000040",
-    background: "#000040",
+    boxShadow: "0 0 10px #191919",
+    background: "#191919",
     transition: "0.3s",
     "&:hover": {
       transform: "scale(1.2)",
       transition: "0.3s",
-      backgroundColor: "#000060",
-      boxShadow: "0 0 10px #000040",
+      backgroundColor: "#191919",
+      boxShadow: "0 0 10px #191919",
     },
   },
 }));
 
-export default function BIButton({ onClick, top, icon, title, left }) {
-  const classes = useStyles({ top, left });
+export default function BIButton({ onClick, top, icon, title, left, right,bottom }) {
+  const classes = useStyles({ top, left,right,bottom });
 
   return (
     <Tooltip arrow={true} title={title}>
