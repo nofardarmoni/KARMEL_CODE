@@ -1,5 +1,5 @@
 import React from "react";
-import { IconButton, makeStyles } from "@material-ui/core";
+import { IconButton, makeStyles, Tooltip } from "@material-ui/core";
 import ShowChartIcon from "@material-ui/icons/ShowChart";
 
 const useStyles = makeStyles(() => ({
@@ -23,12 +23,14 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-export default function BIButton({ onClick, top }) {
+export default function BIButton({ onClick, top, icon, title }) {
   const classes = useStyles({ top });
 
   return (
+    <Tooltip arrow={true} title={title}>
     <IconButton className={classes.openButton} onClick={onClick}>
-      <ShowChartIcon />
+      {icon}
     </IconButton>
+    </Tooltip>
   );
 }

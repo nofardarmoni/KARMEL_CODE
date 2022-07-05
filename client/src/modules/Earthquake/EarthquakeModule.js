@@ -15,7 +15,7 @@ import { currentModuleState } from "@states/moduleState";
 import { layers as moduleLayers } from "./layers";
 import { currentEventState, eventListState } from "@states/eventState";
 import { earthquakeState, magnitodeState } from "../../states/earthquakeState";
-import { Button } from "@material-ui/core";
+import { Button, Tooltip } from "@material-ui/core";
 import { BIButton, BIPanel } from "@features/bi";
 import {
   DistributionStationsGraph,
@@ -28,6 +28,7 @@ import {
   ElectricBarGraphRT,
   GeneralGraph,
 } from "@features/graphs";
+import { ShowChart } from "@material-ui/icons";
 
 const BI_PANEL_MIN_WIDTH = 450;
 const BI_PANEL_MIN_HEIGHT = 200;
@@ -38,10 +39,16 @@ function BI() {
   const [isGeneralBIPanelOpen, setIsGeneralBIPanelOpen] = useState(false);
   return (
     <>
-      <BIButton
-        top={17}
-        onClick={() => setIsWaterBIPanelOpen(!isWaterBIPanelOpen)}
-      />
+        <BIButton
+        title="גרף משאבי מים"
+          top={17}
+          onClick={() => setIsWaterBIPanelOpen(!isWaterBIPanelOpen)}
+          icon={<img
+            height={40}
+            width={30}
+            src="icons/layers/waters/blue-water-drop.png"
+          />}
+        />
       <BIPanel
         isOpen={isWaterBIPanelOpen}
         sizePerColumn={BI_PANEL_MIN_WIDTH}
@@ -54,8 +61,14 @@ function BI() {
       </BIPanel>
 
       <BIButton
+      title="גרף תחנות כוח"
         top={87}
         onClick={() => setIsElectricBIPanelOpen(!isElectricBIPanelOpen)}
+        icon={<img
+          height={30}
+          width={20}
+          src="icons/layers/Electric/lightning-green.png"
+        />}
       />
       <BIPanel
         isOpen={isElectricBIPanelOpen}
@@ -69,8 +82,10 @@ function BI() {
       </BIPanel>
 
       <BIButton
+      title="גרף נתונים - אוכלוסיה"
         top={157}
         onClick={() => setIsGeneralBIPanelOpen(!isGeneralBIPanelOpen)}
+        icon={<ShowChart />}
       />
       <BIPanel
         isOpen={isGeneralBIPanelOpen}
@@ -123,7 +138,6 @@ function MapChildren({ layers, setLayers }) {
   return (
     <>
       <Toolbox layers={layers} setLayers={setLayers} />
-      MuiButtonBase-root MuiFab
       <button
         onClick={handlePicStateOnClick}
         className="-root MuiSpeedDial-fab makeStyles-speedDialFab-44 MuiFab-primary"

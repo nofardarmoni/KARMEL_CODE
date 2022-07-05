@@ -81,8 +81,7 @@ export default function MainMap({ isFlyTo, children }) {
           backgroundColor: "#191919",
           top: 100,
           right: 40,
-          width: 230,
-          height: 200,
+          width: 200,
           borderRadius: 5,
           color: "white",
           paddingTop: 5,
@@ -90,14 +89,57 @@ export default function MainMap({ isFlyTo, children }) {
           textAlign: "center",
         }}
       >
-        מקרא
-        <img
-          height={20}
-          width={20}
-          src="icons/layers/Electric/lightning-green.png"
-        />
+        <span style={{ fontSize: 20, fontWeight: "bold" }}>מקרא</span>
+        <div>
+          <img
+            height={20}
+            width={20}
+            src="icons/layers/Electric/lightning-green.png"
+          />
+          100% תפקוד
+        </div>
+        <div>
+          <img
+            height={20}
+            width={20}
+            src="icons/layers/Electric/lightning-yellow.png"
+          />
+          92% - 77% תפקוד
+        </div>
+        <div>
+          <img
+            height={20}
+            width={20}
+            src="icons/layers/Electric/lightning-red.png"
+          />
+          50% - 0% תפקוד
+        </div>
+        <div>
+          <img
+            height={30}
+            width={30}
+            src="icons/layers/waters/blue-water-drop.png"
+          />
+          100% תפקוד
+        </div>
+        <div>
+          <img
+            height={30}
+            width={30}
+            src="icons/layers/waters/orange-water-drop.png"
+          />
+          92% - 77% תפקוד
+        </div>
+        <div>
+          <img
+            height={30}
+            width={30}
+            src="icons/layers/waters/red-water-drop.png"
+          />
+          50% - 0% תפקוד
+        </div>
       </Box>
-    </MapContainer>
+    </MapContainer >
   );
 }
 
