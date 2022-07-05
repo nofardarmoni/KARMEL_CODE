@@ -17,33 +17,66 @@ import { currentEventState, eventListState } from "@states/eventState";
 import { earthquakeState, magnitodeState } from "../../states/earthquakeState";
 import { Button } from "@material-ui/core";
 import { BIButton, BIPanel } from "@features/bi";
-import { DistributionStationsGraph, ElectricBarGraph, ElectricGraph, HospitalsGraph, WaterBarGraph, WaterDistributionGraph, WaterGraph, ElectricBarGraphRT, GeneralGraph } from "@features/graphs";
+import {
+  DistributionStationsGraph,
+  ElectricBarGraph,
+  ElectricGraph,
+  HospitalsGraph,
+  WaterBarGraph,
+  WaterDistributionGraph,
+  WaterGraph,
+  ElectricBarGraphRT,
+  GeneralGraph,
+} from "@features/graphs";
 
 const BI_PANEL_MIN_WIDTH = 450;
 const BI_PANEL_MIN_HEIGHT = 200;
 
 function BI() {
-  const [isBIPanelOpen, setIsBIPanelOpen] = useState(false);
-
+  const [isWaterBIPanelOpen, setIsWaterBIPanelOpen] = useState(false);
+  const [isElectricBIPanelOpen, setIsElectricBIPanelOpen] = useState(false);
+  const [isGeneralBIPanelOpen, setIsGeneralBIPanelOpen] = useState(false);
   return (
     <>
-      <BIButton onClick={() => setIsBIPanelOpen(!isBIPanelOpen)} />
+      <BIButton
+        top={17}
+        onClick={() => setIsWaterBIPanelOpen(!isWaterBIPanelOpen)}
+      />
       <BIPanel
-        isOpen={isBIPanelOpen}
+        isOpen={isWaterBIPanelOpen}
         sizePerColumn={BI_PANEL_MIN_WIDTH}
         sizePerRow={BI_PANEL_MIN_HEIGHT}
-        graphsPerRow={3}
       >
         <WaterBarGraph />
         <WaterGraph />
         <DistributionStationsGraph />
         <WaterDistributionGraph />
+      </BIPanel>
 
-
+      <BIButton
+        top={87}
+        onClick={() => setIsElectricBIPanelOpen(!isElectricBIPanelOpen)}
+      />
+      <BIPanel
+        isOpen={isElectricBIPanelOpen}
+        sizePerColumn={BI_PANEL_MIN_WIDTH}
+        sizePerRow={BI_PANEL_MIN_HEIGHT}
+        graphsPerRow={3}
+      >
         <ElectricBarGraph />
         <ElectricGraph />
         <ElectricBarGraphRT />
+      </BIPanel>
 
+      <BIButton
+        top={157}
+        onClick={() => setIsGeneralBIPanelOpen(!isGeneralBIPanelOpen)}
+      />
+      <BIPanel
+        isOpen={isGeneralBIPanelOpen}
+        sizePerColumn={BI_PANEL_MIN_WIDTH}
+        sizePerRow={BI_PANEL_MIN_HEIGHT}
+      >
         <GeneralGraph />
       </BIPanel>
     </>
@@ -62,17 +95,6 @@ function MapChildren({ layers, setLayers }) {
   const predictValue = useRecoilValue(earthquakeState);
   const [whiteBorderRealTimeBtn, setWhiteBorderRealTimeBtn] = useState("black");
   const [whiteBorderPredictBtn, setWhiteBorderPredictBtn] = useState("black");
-
-  // useEffect(() => {
-  //   console.log("newEarthquakeState: ", newEarthquakeState)
-  //   if (earthquakeState === "realtime") {
-  //     setWhiteBorderRealTimeBtn("white");
-  //     setWhiteBorderPredictBtn("black");
-  //   } else if (earthquakeState === "predictMode") {
-  //     setWhiteBorderPredictBtn("white");
-  //     setWhiteBorderRealTimeBtn("black");
-  //   }
-  // }, [newEarthquakeState]);
 
   const handlePredictionOnClick = (checkMagnitode = true) => {
     if (checkMagnitode && (magnitode < 4.5 || magnitode > 10)) {

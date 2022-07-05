@@ -7,7 +7,7 @@ const useStyles = makeStyles(() => ({
     zIndex: 1000,
     position: "absolute",
     left: 110,
-    top: 17,
+    top: ({ top }) => top,
     width: 60,
     height: 60,
     color: "white",
@@ -23,14 +23,11 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-export default function BIButton({ onClick }) {
-  const classes = useStyles();
+export default function BIButton({ onClick, top }) {
+  const classes = useStyles({ top });
 
   return (
-    <IconButton
-      className={classes.openButton}
-      onClick={onClick}
-    >
+    <IconButton className={classes.openButton} onClick={onClick}>
       <ShowChartIcon />
     </IconButton>
   );

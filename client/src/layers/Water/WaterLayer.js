@@ -51,11 +51,6 @@ const toolTipDataNames = [
   },
 ];
 
-// const value = selector({
-//   key: 'earthquakeState',
-//   get: ({get}) => get(earthquakeState)
-// })
-
 const useStyles = makeStyles(() => ({
   tootlipTitle: {
     fontSize: 18,
@@ -72,27 +67,8 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-// const getDate = (lastUpdateTime) => {
-//   const parsedDate = Date.parse(lastUpdateTime);
-
-//   if (!parsedDate) return "לא קיים";
-
-//   const date = new Date(parsedDate);
-//   const day = date
-//     .getDate()
-//     .toString()
-//     .padStart(2, "0");
-//   const month = (date.getMonth() + 1).toString().padStart(2, "0");
-//   const year = date.getFullYear().toString();
-
-//   return `${day}/${month}/${year}`;
-// };
-
 function myParse(v) {
-  console.log("v", typeof v);
   if (typeof v == "string") {
-    console.log("555", typeof v);
-
     v = v.replace(",", "");
     return parseInt(v);
   }
@@ -102,23 +78,14 @@ function myParse(v) {
 export const calc = (magntiodeRangeValue, waterT) => {
   const precentegeDamage = peopeleAffectedAmount[magntiodeRangeValue];
   const poduct = myParse(waterT) * precentegeDamage;
-  console.log(`magntiodeRangeValue:    ${magntiodeRangeValue}`);
-  console.log(`waterT:    ${waterT}`);
-  console.log(`typeof waterT:    ${typeof waterT}`);
-  console.log(`precentegeDamage: ${precentegeDamage}`);
-  console.log(`poduct: ${poduct}`);
+
   return poduct;
 };
 export function statecalc(mode, percent, realValue, calcReal) {
-  console.log("mode", mode);
-  // console.log("percent", percent);
-  // console.log("realValue", realValue);
-  // console.log("calcReal", calcReal);
   if (mode === "realtime") {
     return calcReal;
   }
   const res = calc(percent, realValue);
-  console.log(`res: ${res}`);
 
   return res;
 }
@@ -139,16 +106,14 @@ function WaterLayer() {
   const [backgroundColorMaker, setBackgroundColorMaker] = useState(
     "blue-water-icon"
   );
-  useEffect(() => getMagnitodeRange())
+  useEffect(() => getMagnitodeRange());
   useEffect(() => {
     axios
       .get(`http://localhost:5000/earthquakeModule/waterStations`)
       .then((res) => setWaterStationsData(res.data.recordset));
   }, []);
 
-  const calculatePredection = (waterStation) => {
-    // console.log(`waterStation: ${waterStation}`);
-  };
+  const calculatePredection = (waterStation) => {};
 
   const getMagnitodeRange = () => {
     if (newMagnitodeState >= 4.5 && newMagnitodeState <= 4.9) {
@@ -165,7 +130,6 @@ function WaterLayer() {
   };
 
   const getMarkerColor = (levelOfFunctioning) => {
-    console.log(`levelOfFunctioning: ${typeof levelOfFunctioning}`);
     if (newMagnitodeState < 4.5) {
       return "blue-water-icon";
     }
@@ -191,24 +155,30 @@ function WaterLayer() {
               if (mode !== "realtime") {
                 getMarkerColor(
                   100 -
+                    statecalc(
+                      mode,
+                      waterStation[magntideRangeState],
+                      100,
+                      100 - waterStation.WATER_RAMAT_TIPKUD
+                    )
+                );
+                newMagnitodeState && calc(waterStation[magntideRangeState]);
+              }
+            },
+          }}
+          icon={
+            icons[
+              getMarkerColor(
+                100 -
                   statecalc(
                     mode,
                     waterStation[magntideRangeState],
                     100,
                     100 - waterStation.WATER_RAMAT_TIPKUD
                   )
-                );
-                newMagnitodeState && calc(waterStation[magntideRangeState]);
-              }
-            },
-          }}
-          icon={icons[getMarkerColor(100 -
-            statecalc(
-              mode,
-              waterStation[magntideRangeState],
-              100,
-              100 - waterStation.WATER_RAMAT_TIPKUD
-            ))]}
+              )
+            ]
+          }
         >
           <CustomPopup closeButton={false}>
             <div className={classes.tootlipTitle}>
@@ -219,37 +189,35 @@ function WaterLayer() {
                 (row, _) =>
                   (!row.isConditional ||
                     (row.isConditional &&
-                      (parseFloat(waterStation["WATER_RAMAT_TIPKUD"]) ??
-                        0) < 100)) && (
+                      (parseFloat(waterStation["WATER_RAMAT_TIPKUD"]) ?? 0) <
+                        100)) && (
                     <div key={row.key}>
-                      {/* {console.log(`calaculation : ${waterStation.w}`)} */}
                       {row.title}
 
-                      {/* {waterStation[ magntideRangeState]} */}
                       {waterStation["WATER_RAMAT_TIPKUD"] < "100" &&
                         row.key === "WATER_ZMAN_TIKUN_DAYS" &&
                         100 -
-                        statecalc(
-                          mode,
-                          waterStation[magntideRangeState],
-                          100,
-                          100 - waterStation.WATER_RAMAT_TIPKUD
-                        ) +
-                        "%" ===
-                        "100%" &&
+                          statecalc(
+                            mode,
+                            waterStation[magntideRangeState],
+                            100,
+                            100 - waterStation.WATER_RAMAT_TIPKUD
+                          ) +
+                          "%" ===
+                          "100%" &&
                         ""}
-                      {/* {waterStation[ magntideRangeState]} */}
+
                       {row.key === "WATER_RAMAT_TIPKUD"
                         ? 100 -
-                        statecalc(
-                          mode,
-                          waterStation[magntideRangeState],
-                          100,
-                          100 - waterStation.WATER_RAMAT_TIPKUD
-                        ) +
-                        "%"
+                          statecalc(
+                            mode,
+                            waterStation[magntideRangeState],
+                            100,
+                            100 - waterStation.WATER_RAMAT_TIPKUD
+                          ) +
+                          "%"
                         : row.key === "WATER_TUSHVIM_NO_WATER"
-                          ? parseInt(
+                        ? parseInt(
                             statecalc(
                               mode,
                               waterStation[magntideRangeState],
@@ -257,16 +225,16 @@ function WaterLayer() {
                               waterStation.WATER_REAL_TUSHAVIM
                             )
                           )
-                          : row.key === "WATER_TAHANUT_HALUKA"
-                            ? Math.round(
-                              statecalc(
-                                mode,
-                                waterStation[magntideRangeState],
-                                waterStation.WATER_TUSHAVIM,
-                                waterStation.WATER_REAL_TUSHAVIM
-                              ) / 2000
-                            )
-                            : waterStation[row.key]}
+                        : row.key === "WATER_TAHANUT_HALUKA"
+                        ? Math.round(
+                            statecalc(
+                              mode,
+                              waterStation[magntideRangeState],
+                              waterStation.WATER_TUSHAVIM,
+                              waterStation.WATER_REAL_TUSHAVIM
+                            ) / 2000
+                          )
+                        : waterStation[row.key]}
                     </div>
                   )
               )}
@@ -278,8 +246,6 @@ function WaterLayer() {
   );
 }
 
-const getRowValue = (obj) => {
-  // if(obj[])
-};
+const getRowValue = (obj) => {};
 
 export default deepCompareMemo(WaterLayer);

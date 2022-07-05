@@ -73,7 +73,7 @@ function ElectricLayer() {
 
   const [magntideRangeState, setMagntideRangeState] = useState(null);
 
-  useEffect(() => getMagnitodeRange())
+  useEffect(() => getMagnitodeRange());
   useEffect(() => {
     axios
       .get(`http://localhost:5000/earthquakeModule/electricStations`)
@@ -95,7 +95,6 @@ function ElectricLayer() {
   };
 
   const getMarkerColor = (levelOfFunctioning) => {
-    console.log(`levelOfFunctioning: ${typeof levelOfFunctioning}`);
     if (newMagnitodeState < 4.5) {
       return "lightning-green";
     }
@@ -116,13 +115,19 @@ function ElectricLayer() {
         <Marker
           key={electricStation.ELEC_KEY}
           position={[electricStation.ELEC_NZLEFT, electricStation.ELEC_NZRIGHT]}
-          icon={icons[getMarkerColor(100 -
-            statecalc(
-              mode,
-              electricStation[magntideRangeState],
-              100,
-              100 - parseInt(electricStation.ELEC_RAMAT_TIFKUD)
-            ))]}
+          icon={
+            icons[
+              getMarkerColor(
+                100 -
+                  statecalc(
+                    mode,
+                    electricStation[magntideRangeState],
+                    100,
+                    100 - parseInt(electricStation.ELEC_RAMAT_TIFKUD)
+                  )
+              )
+            ]
+          }
           eventHandlers={{
             click: (_) => {
               if (earthquakeState.key !== "realtime") {
@@ -140,21 +145,22 @@ function ElectricLayer() {
                 (row, _) =>
                   (!row.isConditional ||
                     (row.isConditional &&
-                      (parseFloat(electricStation["ELEC_RAMAT_TIFKUD"]) ?? 0) < 100)) && (
+                      (parseFloat(electricStation["ELEC_RAMAT_TIFKUD"]) ?? 0) <
+                        100)) && (
                     <div key={row.key}>
                       {row.title}
                       {/* {electricStation[row.key] ?? "לא הוזן"} */}
                       {row.key === "ELEC_CUSTEMERS_WITHOUT_ELEC"
                         ? parseInt(
-                          statecalc(
-                            mode,
-                            electricStation[magntideRangeState],
-                            electricStation.ELEC_TOTAL_CUSTOMERS,
-                            electricStation.ELEC_CUSTEMERS_WITHOUT_ELEC
+                            statecalc(
+                              mode,
+                              electricStation[magntideRangeState],
+                              electricStation.ELEC_TOTAL_CUSTOMERS,
+                              electricStation.ELEC_CUSTEMERS_WITHOUT_ELEC
+                            )
                           )
-                        )
                         : row.key === "ELEC_RAMAT_TIFKUD"
-                          ? 100 -
+                        ? 100 -
                           statecalc(
                             mode,
                             electricStation[magntideRangeState],
@@ -162,7 +168,7 @@ function ElectricLayer() {
                             100 - parseInt(electricStation.ELEC_RAMAT_TIFKUD)
                           ) +
                           "%"
-                          : electricStation[row.key]}
+                        : electricStation[row.key]}
                     </div>
                   )
               )}

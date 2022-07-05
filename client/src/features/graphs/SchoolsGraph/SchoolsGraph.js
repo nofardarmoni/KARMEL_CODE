@@ -28,35 +28,7 @@ export default function SchoolsGraph({ polygon }) {
     },
   ];
 
-  const [data,] = useState(defaultData);
-
-  // const getData = () => {
-  //   if (!polygon) return;
-
-  //   fetchData("population", REQUEST_METHODS.areaReport, "מוסדות", {
-  //     polygon: polygonToWKT(polygon),
-  //   })
-  //     .then((result) => {
-  //       const youngCount = result["age_0_4"];
-
-  //       setData(
-  //         defaultData.map((institute) => {
-  //           institute.amount = Math.round(youngCount * institute.percent);
-
-  //           return institute;
-  //         })
-  //       );
-  //     })
-  //     .catch((error) => {
-  //       console.log(
-  //         error.response && error.response.status !== 404
-  //           ? `שגיאה: ${error.response.data}`
-  //           : "חלה שגיאה בטעינת המוסדות"
-  //       );
-  //     });
-  // };
-
-  // useEffect(getData, [polygon]);
+  const [data] = useState(defaultData);
 
   return (
     <GraphFrame
