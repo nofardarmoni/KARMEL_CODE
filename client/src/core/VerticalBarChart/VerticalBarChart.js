@@ -41,8 +41,13 @@ const CustomTooltip = (props) => {
 
   return (
     <div className={tooltipClasses.tooltipContainer}>
-      <div className={tooltipClasses.tooltipAges}>{props.title}: {props.label}</div>
-      <div>{props.subLabel}: {numberWithCommas(props.payload[0]?.value)} {props.subTitle}</div>
+      <div className={tooltipClasses.tooltipAges}>
+        {props.title}: {props.label}
+      </div>
+      <div>
+        {props.subLabel}: {numberWithCommas(props.payload[0]?.value)}{" "}
+        {props.subTitle}
+      </div>
       {/* <div className={tooltipClasses.tooltipPercentage}>
         {percentage(props.payload[0]?.value, props.total)}% מכלל האוכלוסיה
         באיזור
@@ -64,15 +69,22 @@ const CustomizedAxisTick = ({ x, y, payload }) => {
       strokeWidth={0.5}
       angle={-45}
       fontSize={10}
-    // transform={`rotate(-45)`}
+      // transform={`rotate(-45)`}
     >
       {payload.value}
     </Text>
   );
 };
 
-const VerticalBar = ({ data, total, xAxisLabel, yAxisLabel, subTitle, subLabel }) => {
-  const bars = data.map((col, index) => {
+const VerticalBar = ({
+  data,
+  total,
+  xAxisLabel,
+  yAxisLabel,
+  subTitle,
+  subLabel,
+}) => {
+  const bars = data?.map((col, index) => {
     return { ...col, fill: colors[index] ? colors[index] : "#FFFFFF" };
   });
 
@@ -84,10 +96,26 @@ const VerticalBar = ({ data, total, xAxisLabel, yAxisLabel, subTitle, subLabel }
           interval={0}
           tick={<CustomizedAxisTick />}
           height={50}
-          label={{ value: xAxisLabel, position: 'insideBottomRight', fill: "white", fontWeight: "bolder" }}
+          label={{
+            value: xAxisLabel,
+            position: "insideBottomRight",
+            fill: "white",
+            fontWeight: "bolder",
+          }}
         />
-        <YAxis label={{ value: yAxisLabel, position: 'relative', fill: "white" }} />
-        <Tooltip content={<CustomTooltip total={total} title={xAxisLabel} subTitle={subTitle} subLabel={subLabel} />} />
+        <YAxis
+          label={{ value: yAxisLabel, position: "relative", fill: "white" }}
+        />
+        <Tooltip
+          content={
+            <CustomTooltip
+              total={total}
+              title={xAxisLabel}
+              subTitle={subTitle}
+              subLabel={subLabel}
+            />
+          }
+        />
         <Bar dataKey="count" />
       </BarChart>
     </ResponsiveContainer>

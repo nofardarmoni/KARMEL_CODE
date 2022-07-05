@@ -6,7 +6,7 @@ const useStyles = makeStyles(() => ({
   openButton: {
     zIndex: 1000,
     position: "absolute",
-    left: 110,
+    left: ({ left }) => left ?? 110,
     top: ({ top }) => top,
     width: 60,
     height: 60,
@@ -23,14 +23,14 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-export default function BIButton({ onClick, top, icon, title }) {
-  const classes = useStyles({ top });
+export default function BIButton({ onClick, top, icon, title, left }) {
+  const classes = useStyles({ top, left });
 
   return (
     <Tooltip arrow={true} title={title}>
-    <IconButton className={classes.openButton} onClick={onClick}>
-      {icon}
-    </IconButton>
+      <IconButton className={classes.openButton} onClick={onClick}>
+        {icon}
+      </IconButton>
     </Tooltip>
   );
 }

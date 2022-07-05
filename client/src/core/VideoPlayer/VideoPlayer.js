@@ -27,7 +27,7 @@ export default function VideoPlayer({ cameraLink }) {
       player.current = videojs(videoNode, options);
     }
 
-    player.current.src([{ src: cameraLink, type: "application/x-mpegURL" }]);
+    player.current.src([{ src: cameraLink, type: "video/mp4" }]);
   }, [cameraLink, videoNode, prevNode]);
 
   if (!cameraLink) return null;

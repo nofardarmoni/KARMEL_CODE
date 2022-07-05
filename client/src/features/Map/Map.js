@@ -1,5 +1,10 @@
 import React from "react";
-import { MapContainer, AttributionControl, Circle } from "react-leaflet";
+import {
+  MapContainer,
+  AttributionControl,
+  Circle,
+  Marker,
+} from "react-leaflet";
 import {
   defaultCenter,
   defaultZoom,
@@ -13,6 +18,7 @@ import MapFlyTo from "./MapFlyTo";
 import MapSelector from "./MapSelector";
 import { earthquakeState } from "@states/earthquakeState";
 import { useRecoilValue } from "recoil";
+import { CustomPopup, VideoPlayer } from "@core";
 
 const useStyles = makeStyles(() => ({
   map: {
@@ -71,75 +77,7 @@ export default function MainMap({ isFlyTo, children }) {
           />
         </>
       )}
-
-      <Box
-        sx={{
-          display: "flex",
-          flexDirection: "column",
-          zIndex: 1000,
-          position: "absolute",
-          backgroundColor: "#191919",
-          top: 100,
-          right: 40,
-          width: 200,
-          borderRadius: 5,
-          color: "white",
-          paddingTop: 5,
-          paddingRight: 10,
-          textAlign: "center",
-        }}
-      >
-        <span style={{ fontSize: 20, fontWeight: "bold" }}>מקרא</span>
-        <div>
-          <img
-            height={20}
-            width={20}
-            src="icons/layers/Electric/lightning-green.png"
-          />
-          100% תפקוד
-        </div>
-        <div>
-          <img
-            height={20}
-            width={20}
-            src="icons/layers/Electric/lightning-yellow.png"
-          />
-          92% - 77% תפקוד
-        </div>
-        <div>
-          <img
-            height={20}
-            width={20}
-            src="icons/layers/Electric/lightning-red.png"
-          />
-          50% - 0% תפקוד
-        </div>
-        <div>
-          <img
-            height={30}
-            width={30}
-            src="icons/layers/waters/blue-water-drop.png"
-          />
-          100% תפקוד
-        </div>
-        <div>
-          <img
-            height={30}
-            width={30}
-            src="icons/layers/waters/orange-water-drop.png"
-          />
-          92% - 77% תפקוד
-        </div>
-        <div>
-          <img
-            height={30}
-            width={30}
-            src="icons/layers/waters/red-water-drop.png"
-          />
-          50% - 0% תפקוד
-        </div>
-      </Box>
-    </MapContainer >
+    </MapContainer>
   );
 }
 
