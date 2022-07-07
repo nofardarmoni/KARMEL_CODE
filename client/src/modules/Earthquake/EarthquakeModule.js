@@ -15,7 +15,7 @@ import { currentModuleState } from "@states/moduleState";
 import { layers as moduleLayers } from "./layers";
 import { currentEventState, eventListState } from "@states/eventState";
 import { earthquakeState, magnitodeState } from "../../states/earthquakeState";
-import { Button, Tooltip } from "@material-ui/core";
+import { Button, makeStyles, Tooltip } from "@material-ui/core";
 import { BIButton, BIPanel } from "@features/bi";
 import {
   DistributionStationsGraph,
@@ -28,74 +28,150 @@ import {
   ElectricBarGraphRT,
   GeneralGraph,
 } from "@features/graphs";
-import { FormatListNumberedRtl, InsertDriveFile, KeyboardArrowLeft, KeyboardArrowRight, OndemandVideo, ShowChart } from "@material-ui/icons";
+import {
+  FormatListNumberedRtl,
+  InsertDriveFile,
+  KeyboardArrowLeft,
+  KeyboardArrowRight,
+  OndemandVideo,
+  ShowChart,
+} from "@material-ui/icons";
 import { Document } from "react-pdf";
-import { Page } from "react-pdf";
+import { Page, pdfjs } from "react-pdf";
+import { SpeedDial, SpeedDialAction } from "@material-ui/lab";
+pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.min.js`;
 
 const BI_PANEL_MIN_WIDTH = 450;
 const BI_PANEL_MIN_HEIGHT = 200;
 
+const useStyles = makeStyles(() => ({
+  speedDial: {
+    position: "absolute",
+    zIndex: 1000,
+    left: 100,
+    top: 20,
+  },
+  speedDialFab: {
+    "&.MuiFab-primary": {
+      backgroundColor: "#191919",
+    },
+    "&.MuiSpeedDialAction-fab": {
+      backgroundColor: "#191919",
+    },
+  },
+  tooltip: {
+    fontSize: 14,
+  },
+}));
+
 function BI() {
+  const classes = useStyles();
+  const [open, setOpen] = useState(false); // todo: can be a better state machine
   const [isWaterBIPanelOpen, setIsWaterBIPanelOpen] = useState(false);
   const [isElectricBIPanelOpen, setIsElectricBIPanelOpen] = useState(false);
   const [isGeneralBIPanelOpen, setIsGeneralBIPanelOpen] = useState(false);
+
+  const actions = {
+    water: {
+      icon: (
+        <img
+          alt=""
+          height={40}
+          width={30}
+          src="icons/layers/waters/blue-water-drop.png"
+        />
+      ),
+      name: "דשבורד משאבי מים",
+      handler: () => {
+        setIsWaterBIPanelOpen(!isWaterBIPanelOpen);
+      },
+    },
+    electric: {
+      icon: (
+        <img
+          alt=""
+          height={30}
+          width={30}
+          src="icons/layers/Electric/lightning-green.png"
+        />
+      ),
+      name: "דשבורד תחנות כוח",
+      handler: () => {
+        setIsElectricBIPanelOpen(!isElectricBIPanelOpen);
+      },
+    },
+    general: {
+      icon: <ShowChart />,
+      name: "דשבורד נתונים - אוכלוסיה",
+      handler: () => {
+        setIsGeneralBIPanelOpen(!isGeneralBIPanelOpen);
+      },
+    },
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+    setIsWaterBIPanelOpen(false);
+    setIsElectricBIPanelOpen(false);
+    setIsGeneralBIPanelOpen(false);
+  };
+
   return (
     <>
-        <BIButton
-        title="גרף משאבי מים"
-          top={17}
-          onClick={() => setIsWaterBIPanelOpen(!isWaterBIPanelOpen)}
-          icon={<img
-            height={40}
-            width={30}
-            src="icons/layers/waters/blue-water-drop.png"
-          />}
-        />
-      <BIPanel
-        isOpen={isWaterBIPanelOpen}
-        sizePerColumn={BI_PANEL_MIN_WIDTH}
-        sizePerRow={BI_PANEL_MIN_HEIGHT}
-      >
-        <WaterBarGraph />
-        <WaterGraph />
-        <DistributionStationsGraph />
-        <WaterDistributionGraph />
-      </BIPanel>
-
-      <BIButton
-      title="גרף תחנות כוח"
-        top={87}
-        onClick={() => setIsElectricBIPanelOpen(!isElectricBIPanelOpen)}
-        icon={<img
-          height={30}
-          width={20}
-          src="icons/layers/Electric/lightning-green.png"
-        />}
-      />
-      <BIPanel
-        isOpen={isElectricBIPanelOpen}
-        sizePerColumn={BI_PANEL_MIN_WIDTH}
-        sizePerRow={BI_PANEL_MIN_HEIGHT}
-        graphsPerRow={3}
-      >
-        <ElectricBarGraph />
-        <ElectricGraph />
-        <ElectricBarGraphRT />
-      </BIPanel>
-
-      <BIButton
-      title="גרף נתונים - אוכלוסיה"
-        top={157}
-        onClick={() => setIsGeneralBIPanelOpen(!isGeneralBIPanelOpen)}
-        icon={<ShowChart />}
-      />
-      <BIPanel
-        isOpen={isGeneralBIPanelOpen}
-        sizePerColumn={BI_PANEL_MIN_WIDTH}
-        sizePerRow={BI_PANEL_MIN_HEIGHT}
-      >
-        <GeneralGraph />
-      </BIPanel>
+      <Tooltip title="דשבורדים">
+        <SpeedDial
+          ariaLabel="SpeedDial openIcon example"
+          className={classes.speedDial}
+          icon={<ShowChart />}
+          open={open}
+          direction={"down"}
+          FabProps={{
+            className: classes.speedDialFab,
+            onClick: () => (open ? handleClose() : setOpen(true)),
+          }}
+        >
+          {Object.keys(actions).map((action) => (
+            <SpeedDialAction
+              key={action}
+              icon={actions[action].icon}
+              tooltipTitle={actions[action].name}
+              TooltipClasses={{ tooltip: classes.tooltip }}
+              tooltipPlacement={"bottom"}
+              arrow={true}
+              onClick={actions[action].handler}
+            />
+          ))}
+        </SpeedDial>
+      </Tooltip>
+      <>
+        <BIPanel
+          isOpen={isWaterBIPanelOpen}
+          sizePerColumn={BI_PANEL_MIN_WIDTH}
+          sizePerRow={BI_PANEL_MIN_HEIGHT}
+        >
+          <WaterBarGraph />
+          <WaterGraph />
+          <DistributionStationsGraph />
+          <WaterDistributionGraph />
+        </BIPanel>
+        <BIPanel
+          isOpen={isElectricBIPanelOpen}
+          sizePerColumn={BI_PANEL_MIN_WIDTH}
+          sizePerRow={BI_PANEL_MIN_HEIGHT}
+          graphsPerRow={3}
+        >
+          <ElectricBarGraph />
+          <ElectricGraph />
+          <ElectricBarGraphRT />
+        </BIPanel>
+        <BIPanel
+          isOpen={isGeneralBIPanelOpen}
+          sizePerColumn={BI_PANEL_MIN_WIDTH}
+          sizePerRow={BI_PANEL_MIN_HEIGHT}
+        >
+          <GeneralGraph />
+        </BIPanel>
+      </>
     </>
   );
 }
@@ -294,6 +370,7 @@ export default function EarthquakeModule() {
           <span style={{ fontSize: 20, fontWeight: "bold" }}>מקרא</span>
           <div>
             <img
+              alt=""
               height={20}
               width={20}
               src="icons/layers/Electric/lightning-green.png"
@@ -302,6 +379,7 @@ export default function EarthquakeModule() {
           </div>
           <div>
             <img
+              alt=""
               height={20}
               width={20}
               src="icons/layers/Electric/lightning-yellow.png"
@@ -310,6 +388,7 @@ export default function EarthquakeModule() {
           </div>
           <div>
             <img
+              alt=""
               height={20}
               width={20}
               src="icons/layers/Electric/lightning-red.png"
@@ -318,6 +397,7 @@ export default function EarthquakeModule() {
           </div>
           <div>
             <img
+              alt=""
               height={30}
               width={30}
               src="icons/layers/waters/blue-water-drop.png"
@@ -326,6 +406,7 @@ export default function EarthquakeModule() {
           </div>
           <div>
             <img
+              alt=""
               height={30}
               width={30}
               src="icons/layers/waters/orange-water-drop.png"
@@ -334,6 +415,7 @@ export default function EarthquakeModule() {
           </div>
           <div>
             <img
+              alt=""
               height={30}
               width={30}
               src="icons/layers/waters/red-water-drop.png"
@@ -382,7 +464,7 @@ export default function EarthquakeModule() {
             }}
           >
             <Document file="pdfFile.pdf" onLoadSuccess={onDocumentLoadSuccess}>
-              <Page height="10vh" pageNumber={pageNumber} />
+              <Page height={1000} pageNumber={pageNumber} />
             </Document>
           </div>
         </>
@@ -403,7 +485,7 @@ export default function EarthquakeModule() {
             position: "absolute",
             left: 100,
             bottom: 100,
-            height: "55vh",
+            height: 500,
           }}
           loop
           src="Final_projact.mp4"

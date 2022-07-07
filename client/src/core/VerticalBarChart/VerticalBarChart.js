@@ -45,7 +45,7 @@ const CustomTooltip = (props) => {
         {props.title}: {props.label}
       </div>
       <div>
-        {props.subLabel}: {numberWithCommas(props.payload[0]?.value)}{" "}
+        {props.subLabel}: {numberWithCommas(props?.payload?.[0]?.value)}{" "}
         {props.subTitle}
       </div>
       {/* <div className={tooltipClasses.tooltipPercentage}>
