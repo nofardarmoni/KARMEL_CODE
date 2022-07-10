@@ -20,7 +20,7 @@
     "leaflet": "^1.7.1",
     "leaflet-control-geocoder": "^2.3.0",
     "lodash": "^4.17.21",
-    "moment": "^2.29.1",
+    "moment": "^2.29.4",
     "moment-duration-format": "^2.3.2",
     "react": "^16.14.0",
     "react-countdown": "^2.3.0",

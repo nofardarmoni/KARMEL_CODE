@@ -131,14 +131,14 @@ function WaterLayer() {
 
   const getMarkerColor = (levelOfFunctioning) => {
     if (newMagnitodeState < 4.5) {
-      return "blue-water-icon";
+      return "blue-water-drop";
     }
     if (levelOfFunctioning <= 50) {
-      return "red-water-icon";
+      return "red-water-drop";
     } else if (levelOfFunctioning < 92) {
-      return "orange-water-icon";
+      return "orange-water-drop";
     } else {
-      return "blue-water-icon";
+      return "blue-water-drop";
     }
   };
 

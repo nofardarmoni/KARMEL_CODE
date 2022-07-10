@@ -41,11 +41,6 @@ const toolTipDataNames = [
 
 const iconUrl = "icons/layers/Electric";
 
-const electricIcon = L.icon({
-  iconUrl: `${iconUrl}/lightning-green.png`,
-  iconSize: [20, 20],
-});
-
 const useStyles = makeStyles(() => ({
   tootlipTitle: {
     fontSize: 18,
