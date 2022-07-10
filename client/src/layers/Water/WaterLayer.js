@@ -150,22 +150,6 @@ function WaterLayer() {
         <Marker
           key={waterStation.WATER_KEY}
           position={[waterStation.WATER_NZLEFT, waterStation.WATER_NZRIGHT]}
-          eventHandlers={{
-            click: (_) => {
-              if (mode !== "realtime") {
-                getMarkerColor(
-                  100 -
-                    statecalc(
-                      mode,
-                      waterStation[magntideRangeState],
-                      100,
-                      100 - waterStation.WATER_RAMAT_TIPKUD
-                    )
-                );
-                newMagnitodeState && calc(waterStation[magntideRangeState]);
-              }
-            },
-          }}
           icon={
             icons[
               getMarkerColor(
@@ -174,11 +158,18 @@ function WaterLayer() {
                     mode,
                     waterStation[magntideRangeState],
                     100,
-                    100 - waterStation.WATER_RAMAT_TIPKUD
+                    100 - parseInt(waterStation.WATER_RAMAT_TIPKUD)
                   )
               )
             ]
           }
+          eventHandlers={{
+            click: (_) => {
+              if (earthquakeState.key !== "realtime") {
+                newMagnitodeState && calc(waterStation[magntideRangeState]);
+              }
+            },
+          }}
         >
           <CustomPopup closeButton={false}>
             <div className={classes.tootlipTitle}>
@@ -189,31 +180,22 @@ function WaterLayer() {
                 (row, _) =>
                   (!row.isConditional ||
                     (row.isConditional &&
-                      (parseFloat(waterStation["WATER_RAMAT_TIPKUD"]) ?? 0) <
-                        100)) && (
+                      (100 -
+                        statecalc(
+                          mode,
+                          waterStation[magntideRangeState],
+                          100,
+                          100 - parseInt(waterStation.WATER_RAMAT_TIPKUD)
+                        ) ?? 0) < 100)) && (
                     <div key={row.key}>
                       {row.title}
-
-                      {waterStation["WATER_RAMAT_TIPKUD"] < "100" &&
-                        row.key === "WATER_ZMAN_TIKUN_DAYS" &&
-                        100 -
-                          statecalc(
-                            mode,
-                            waterStation[magntideRangeState],
-                            100,
-                            100 - waterStation.WATER_RAMAT_TIPKUD
-                          ) +
-                          "%" ===
-                          "100%" &&
-                        ""}
-
                       {row.key === "WATER_RAMAT_TIPKUD"
                         ? 100 -
                           statecalc(
                             mode,
                             waterStation[magntideRangeState],
                             100,
-                            100 - waterStation.WATER_RAMAT_TIPKUD
+                            100 - parseInt(waterStation.WATER_RAMAT_TIPKUD)
                           ) +
                           "%"
                         : row.key === "WATER_TUSHVIM_NO_WATER"
