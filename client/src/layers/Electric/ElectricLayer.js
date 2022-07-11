@@ -20,11 +20,7 @@ const toolTipDataNames = [
     key: "ELEC_RAMAT_TIFKUD",
     title: "רמת תפקוד -",
   },
-  {
-    key: "ELEC_REPAIR_TIME",
-    title: "צפי תיקון -",
-    isConditional: true,
-  },
+
   {
     key: "ELEC_PHONE",
     title: 'קב"ט -',
@@ -36,6 +32,11 @@ const toolTipDataNames = [
   {
     key: "ELEC_CUSTEMERS_WITHOUT_ELEC",
     title: "מספר תושבים ללא חשמל-",
+  },
+  {
+    key: "ELEC_REPAIR_TIME",
+    title: "צפי תיקון -",
+    isConditional: true,
   },
 ];
 
@@ -118,7 +119,8 @@ function ElectricLayer() {
                     mode,
                     electricStation[magntideRangeState],
                     100,
-                    100 - parseInt(electricStation.ELEC_RAMAT_TIFKUD)
+                    100 - parseInt(electricStation.ELEC_RAMAT_TIFKUD),
+                    newMagnitodeState
                   )
               )
             ]
@@ -145,7 +147,8 @@ function ElectricLayer() {
                           mode,
                           electricStation[magntideRangeState],
                           100,
-                          100 - parseInt(electricStation.ELEC_RAMAT_TIFKUD)
+                          100 - parseInt(electricStation.ELEC_RAMAT_TIFKUD),
+                          newMagnitodeState
                         ) ?? 0) < 100)) && (
                     <div key={row.key}>
                       {row.title}
@@ -155,7 +158,8 @@ function ElectricLayer() {
                               mode,
                               electricStation[magntideRangeState],
                               electricStation.ELEC_TOTAL_CUSTOMERS,
-                              electricStation.ELEC_CUSTEMERS_WITHOUT_ELEC
+                              electricStation.ELEC_CUSTEMERS_WITHOUT_ELEC,
+                              newMagnitodeState
                             )
                           )
                         : row.key === "ELEC_RAMAT_TIFKUD"
@@ -164,7 +168,8 @@ function ElectricLayer() {
                             mode,
                             electricStation[magntideRangeState],
                             100,
-                            100 - parseInt(electricStation.ELEC_RAMAT_TIFKUD)
+                            100 - parseInt(electricStation.ELEC_RAMAT_TIFKUD),
+                            newMagnitodeState
                           ) +
                           "%"
                         : electricStation[row.key]}

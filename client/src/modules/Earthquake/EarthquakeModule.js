@@ -116,6 +116,7 @@ function BI() {
     setIsGeneralBIPanelOpen(false);
   };
 
+
   return (
     <>
       <Tooltip title="דשבורדים">
@@ -186,7 +187,7 @@ function MapChildren({ layers, setLayers }) {
     magnitodeState
   );
   const predictValue = useRecoilValue(earthquakeState);
-  const [whiteBorderRealTimeBtn, setWhiteBorderRealTimeBtn] = useState("black");
+  const [whiteBorderRealTimeBtn, setWhiteBorderRealTimeBtn] = useState("white");
   const [whiteBorderPredictBtn, setWhiteBorderPredictBtn] = useState("black");
 
   const handlePredictionOnClick = (checkMagnitode = true) => {
@@ -434,11 +435,17 @@ export default function EarthquakeModule() {
       />
 
       {isFileClicked && (
-        <>
+        <div
+          style={{
+            zIndex: 1001,
+            position: "absolute",
+            left: 300,
+            bottom: 20,
+          }}>
           <BIButton
             title="קדימה"
-            top={970}
-            left={950}
+            top={870}
+            left={580}
             onClick={() => {
               if (pageNumber === numPages) setPageNumber(numPages);
               else setPageNumber(pageNumber + 1);
@@ -447,27 +454,18 @@ export default function EarthquakeModule() {
           />
           <BIButton
             title="אחורה"
-            top={970}
-            left={300}
+            top={870}
+            left={20}
             onClick={() => {
               if (pageNumber === 1) setPageNumber(1);
               else setPageNumber(pageNumber - 1);
             }}
             icon={<KeyboardArrowLeft fontSize="large" color="white" />}
           />
-          <div
-            style={{
-              zIndex: 999,
-              position: "absolute",
-              left: 300,
-              bottom: 20,
-            }}
-          >
-            <Document file="pdfFile.pdf" onLoadSuccess={onDocumentLoadSuccess}>
-              <Page height={1000} pageNumber={pageNumber} />
-            </Document>
-          </div>
-        </>
+          <Document file="pdfFile.pdf" onLoadSuccess={onDocumentLoadSuccess}>
+            <Page height={930} pageNumber={pageNumber} />
+          </Document>
+        </div>
       )}
 
       <BIButton

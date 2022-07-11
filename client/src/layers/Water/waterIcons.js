@@ -15,4 +15,8 @@ export const icons = {
     iconUrl: `${iconsUrl}/orange-water-drop.png`,
     iconSize: [30, 40],
   }),
+  'default': L.icon({
+    iconUrl: "icons/marker.svg",
+    iconSize: [30, 30],
+  }),
 };
