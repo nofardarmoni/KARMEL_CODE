@@ -41,11 +41,6 @@ const toolTipDataNames = [
 
 const iconUrl = "icons/layers/Electric";
 
-const electricIcon = L.icon({
-  iconUrl: `${iconUrl}/lightning-green.png`,
-  iconSize: [20, 20],
-});
-
 const useStyles = makeStyles(() => ({
   tootlipTitle: {
     fontSize: 18,
@@ -145,11 +140,15 @@ function ElectricLayer() {
                 (row, _) =>
                   (!row.isConditional ||
                     (row.isConditional &&
-                      (parseFloat(electricStation["ELEC_RAMAT_TIFKUD"]) ?? 0) <
-                        100)) && (
+                      (100 -
+                        statecalc(
+                          mode,
+                          electricStation[magntideRangeState],
+                          100,
+                          100 - parseInt(electricStation.ELEC_RAMAT_TIFKUD)
+                        ) ?? 0) < 100)) && (
                     <div key={row.key}>
                       {row.title}
-                      {/* {electricStation[row.key] ?? "לא הוזן"} */}
                       {row.key === "ELEC_CUSTEMERS_WITHOUT_ELEC"
                         ? parseInt(
                             statecalc(
