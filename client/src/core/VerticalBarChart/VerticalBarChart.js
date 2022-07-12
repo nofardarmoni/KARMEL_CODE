@@ -28,12 +28,16 @@ const useTooltipStyles = makeStyles(() => ({
 
 const colors = [
   "#D5E5EC",
+  "#daf5f7",
   "#8FBACC",
   "#4DABA8",
+  "#32c4cf",
+  "#5ce4ed",
   "#4D8BC8",
   "#40748C",
   "#395957",
-  "#F3333F",
+  "#21398f",
+
 ].reverse();
 
 const CustomTooltip = (props) => {

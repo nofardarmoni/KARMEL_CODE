@@ -27,7 +27,7 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-function ElectricBarGraph({ }) {
+function WaterBarGraphRT({ }) {
   const classes = useStyles();
   const dataCache = useRef({});
   const mode = useRecoilValue(earthquakeState);
@@ -38,19 +38,19 @@ function ElectricBarGraph({ }) {
 
   const getMagnitodeRange = () => {
     if (newMagnitodeState >= 4.5 && newMagnitodeState <= 4.9) {
-      setMagntideRangeState("ELEC_MAGNITDE_4_5_4_9");
+      setMagntideRangeState("MAGNITODA_4_5_4_9");
     } else if (newMagnitodeState >= 5 && newMagnitodeState <= 6.5) {
-      setMagntideRangeState("ELEC_MAGNITDE_4_6_6_5");
+      setMagntideRangeState("MAGNITODA_5_6_5");
     } else if (newMagnitodeState >= 6.6 && newMagnitodeState <= 7) {
-      setMagntideRangeState("ELEC_MAGNITDE_6_6_7");
+      setMagntideRangeState("MAGNITODA_6_6_7");
     } else if (newMagnitodeState >= 7.1 && newMagnitodeState <= 7.5) {
-      setMagntideRangeState("ELEC_MAGNITDE_7_1_7_5");
+      setMagntideRangeState("MAGNITODA_7_1_7_5");
     } else {
-      setMagntideRangeState("ELEC_MAGNITDE_UP_TO_7_6");
+      setMagntideRangeState("MAGNITODA_7_6_to_top");
     }
   };
 
-  const [electricStationsData, setElectricStationsData] = useState([]);
+  const [waterStationsData, setWaterStationsData] = useState([]);
 
   useEffect(() => {
     getMagnitodeRange();
@@ -58,31 +58,31 @@ function ElectricBarGraph({ }) {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:5000/earthquakeModule/electricStations`)
-      .then((res) => setElectricStationsData(res.data.recordset));
+    .get(`http://localhost:5000/earthquakeModule/waterStations`)
+    .then((res) => setWaterStationsData(res.data.recordset));
   }, []);
-  const graphData = electricStationsData
-    ?.map((electricStation) => ({
-      rashut: electricStation.ELEC_STATION_NAME,
+  const graphData = waterStationsData
+    ?.map((waterStation) => ({
+      rashut: waterStation.WATER_RASHUT,
       count:
         statecalc(
           mode,
-          electricStation[magntideRangeState],
+          waterStation[magntideRangeState],
           100,
-          100 - parseInt(electricStation.ELEC_RAMAT_TIFKUD)
-        ),
+          100 - parseInt(waterStation.WATER_RAMAT_TIPKUD),
+          newMagnitodeState      ),
     }))
     .sort((a, b) => b.count - a.count);
 
   return (
     <GraphFrame
       hideGraph={graphData?.length === 0 || newMagnitodeState < 4.5}
-      title='פילוח תחנות כח ע"פ רמות השבתה'
-      alternativeDesc={"אין נתונים על תחנות כח"}
+      title='פילוח משאבי מים ע"פ רמות השבתה'
+      alternativeDesc={"אין נתונים על משאב מים"}
     >
       <VerticalBarChart
         data={graphData}
-        xAxisLabel="תחנת כוח"
+        xAxisLabel="משאב מים"
         yAxisLabel="(%) השבתה"
         subTitle="%"
         subLabel="רמת השבתה"
@@ -91,4 +91,4 @@ function ElectricBarGraph({ }) {
   );
 }
 
-export default deepCompareMemo(ElectricBarGraph);
+export default deepCompareMemo(WaterBarGraphRT);

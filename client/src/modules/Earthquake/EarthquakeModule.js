@@ -19,6 +19,7 @@ import { Button, makeStyles, Tooltip } from "@material-ui/core";
 import { BIButton, BIPanel } from "@features/bi";
 import {
   DistributionStationsGraph,
+  WaterBarGraphRT,
   ElectricBarGraph,
   ElectricGraph,
   HospitalsGraph,
@@ -35,6 +36,7 @@ import {
   KeyboardArrowRight,
   OndemandVideo,
   ShowChart,
+  CloudDownload
 } from "@material-ui/icons";
 import { Document } from "react-pdf";
 import { Page, pdfjs } from "react-pdf";
@@ -151,6 +153,7 @@ function BI() {
           sizePerRow={BI_PANEL_MIN_HEIGHT}
         >
           <WaterBarGraph />
+          <WaterBarGraphRT />
           <WaterGraph />
           <DistributionStationsGraph />
           <WaterDistributionGraph />
@@ -462,6 +465,15 @@ export default function EarthquakeModule() {
             }}
             icon={<KeyboardArrowLeft fontSize="large" color="white" />}
           />
+
+          <a href={require("../../pdfFile.pdf")} download="myFile.pdf">
+            <BIButton
+              title="הורדת קובץ"
+              top={800}
+              left={20}
+              icon={<CloudDownload fontSize="large" color="white" />}
+            />
+          </a>
           <Document file="pdfFile.pdf" onLoadSuccess={onDocumentLoadSuccess}>
             <Page height={930} pageNumber={pageNumber} />
           </Document>

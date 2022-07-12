@@ -1,19 +1,3 @@
-//import React from "react";
-//import { CamerasLayer, DistrictsLayer, SubDistrictsLayer } from "@layers";
-
-//export const layers = {
-  //cameras: {
-    //key: "cameras",
-    //isChecked: false,
-    //distance: 2,
-    //zoom: 8,
-    //label: "מצלמות",
-    //component: ({ polygon, distance }) => (
-      //<CamerasLayer polygon={polygon} distance={distance} />
-    //),
-  //},
-//};
-
 import React from "react";
 import {
   CamerasLayer,
@@ -22,21 +6,37 @@ import {
   SubDistrictsLayer,
   ForcesLayer,
   SirensLayer,
+  TrafficLayer,
 } from "@layers";
 import { sirensStatuses, forcesTypes } from "@constants";
 import ElectricLayer from "@layers/Electric/ElectricLayer";
 import WaterLayer from "@layers/Water/WaterLayer";
+import DistributionLayer from "@layers/Water/DistributionLayer";
 
 export const layers = {
   water: {
     key: "water",
-    isChecked: false,
-    distance: 2,
+    types: {
+      waterStations: {
+        key: "waterStations",
+        isChecked: false,
+        label: "משאבי מים",
+        component: ({ polygon, distance }) => (
+          <WaterLayer polygon={polygon} distance={distance} />
+        ),
+      },
+      distributionStations: {
+        key: "distributionStations",
+        isChecked: false,
+        label: "תחנות חלוקה",
+        component: ({ polygon, distance }) => (
+          <DistributionLayer polygon={polygon} distance={distance} />
+        ),
+      },
+    },
+    distance: 10,
     zoom: 8,
-    label: "משאבי מים",
-    component: ({ polygon, distance }) => (
-      <WaterLayer polygon={polygon} distance={distance} />
-    ),
+    label: "מים",
   },
   electric: {
     key: "elctrics",
@@ -202,6 +202,13 @@ export const layers = {
     distance: 4,
     zoom: 8,
     label: "צופרים",
+  },
+  traffic: {
+    key: "traffic",
+    isChecked: false,
+    zoom: 10,
+    label: "עומסי תנועה",
+    component: () => <TrafficLayer />,
   },
   districts: {
     key: "districts",
